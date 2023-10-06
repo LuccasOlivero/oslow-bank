@@ -7,7 +7,7 @@ function NavBar() {
       <div className="flex justify-between items-center w-full h-full  max-w-[1900px]">
         <FontAwesomeIcon icon={faBars} size="xl" />
 
-        <picture className="h-full">
+        <picture className="h-[3rem]">
           <img
             src="./oslo.png"
             alt="oslowIcon"
