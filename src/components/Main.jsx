@@ -13,10 +13,6 @@ function Main() {
             Simplified banking for an enhanced <br />
             and enriched financial experience.
           </h1>
-          <p className="text-xl font-light py-6">
-            We simplify banking for you. With cutting-edge technology, managing
-            your finances has never been easier or more rewarding.
-          </p>
 
           <div className="relative w-[12rem] h-[3.5rem] bg-gray-900 rounded-full flex items-center font-bold text-white hover:bg-gray-950 transition-all ease-in duration-300 p-2 justify-center mb-[14rem] text-lg">
             Join Now
