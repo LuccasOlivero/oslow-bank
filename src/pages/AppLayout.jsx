@@ -22,7 +22,8 @@ function AppLayout() {
           <div className="grid grid-cols-3 gap-6 max-w-[1300px] my-[3rem] w-full">
             <div className="bg-gray-900 w-full h-full relative rounded-[3rem] text-[#f2f2f2] p-8 flex flex-col justify-between items-center shadow-2xl row-span-3">
               <h3 className="text-4xl font-semibold">
-                Welcome again <br />
+                👋 Welcome
+                <br />
                 Lucas
               </h3>
               <p className="text-6xl ">
