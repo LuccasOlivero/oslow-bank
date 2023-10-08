@@ -9,6 +9,7 @@ import {
   faSackDollar,
 } from "@fortawesome/free-solid-svg-icons";
 import Footer from "./Footer";
+import { NavLink } from "react-router-dom";
 
 function Main() {
   return (
@@ -27,12 +28,15 @@ function Main() {
                 managing your finances has never been easier or more rewarding.
               </p>
 
-              <div className="relative w-[12rem] h-[3.5rem] bg-gray-900 rounded-full flex items-center font-bold text-white hover:bg-gray-950 transition-all ease-in duration-300 p-2 justify-center text-lg mb-[13rem] shadow-xl hover:shadow-2xl">
+              <NavLink
+                to="/bank"
+                className="relative w-[12rem] h-[3.5rem] bg-gray-900 rounded-full flex items-center font-bold text-white hover:bg-gray-950 transition-all ease-in duration-300 p-2 justify-center text-lg mb-[13rem] shadow-xl hover:shadow-2xl"
+              >
                 Join Now
                 <span className="w-[3rem] h-[3rem] rounded-full bg-green-600 flex justify-center items-center absolute right-[.2rem] hover:bg-green-700 transition-all ease-in duration-200 rotate-[-35deg]">
                   <FontAwesomeIcon icon={faArrowRight} />
                 </span>
-              </div>
+              </NavLink>
             </div>
 
             <div className="flex justify-center items-center flex-col">

@@ -1,7 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { NavLink, useLocation } from "react-router-dom";
 
 function NavBar({ session = "Login" }) {
+  const currLocation = useLocation().pathname;
+  console.log(currLocation);
   return (
     <nav className="flex justify-center w-full h-[4rem]">
       <div className="flex justify-between items-center w-full h-full  max-w-[1300px]">
@@ -15,7 +18,12 @@ function NavBar({ session = "Login" }) {
           />
         </picture>
 
-        <p className="font-semibold text-xl">{session}</p>
+        <NavLink
+          to={`${currLocation === "/bank" ? "/" : "/bank"}`}
+          className="font-semibold text-xl"
+        >
+          {session}
+        </NavLink>
       </div>
     </nav>
   );

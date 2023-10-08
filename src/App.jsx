@@ -1,6 +1,6 @@
 import Main from "./components/Main";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Bank from "./pages/Bank";
+import AppLayout from "./pages/AppLayout";
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index path="/" element={<Main />} />
-          <Route path="/bank" element={<Bank />} />
+          <Route path="/App" element={<AppLayout />} />
         </Routes>
       </BrowserRouter>
     </>
