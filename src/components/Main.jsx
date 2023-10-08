@@ -29,7 +29,7 @@ function Main() {
               </p>
 
               <NavLink
-                to="/bank"
+                to="/login"
                 className="relative w-[12rem] h-[3.5rem] bg-gray-900 rounded-full flex items-center font-bold text-white hover:bg-gray-950 transition-all ease-in duration-300 p-2 justify-center text-lg mb-[13rem] shadow-xl hover:shadow-2xl"
               >
                 Join Now

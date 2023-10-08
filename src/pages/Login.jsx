@@ -1,13 +1,23 @@
 import NavBar from "../components/NavBar";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useAuth, AuthProvider } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import Error from "../components/Error";
 
 function Login() {
   const location = useLocation();
-  const [email, setEmail] = useState("admin@admin.com");
-  const [password, setPassword] = useState("admin");
-  const { login } = useAuth();
+
+  const {
+    login,
+    isAuthenticated,
+    error,
+    email,
+    setEmail,
+    password,
+    setPassword,
+  } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const isLoginPage = location.pathname === "/login";
@@ -15,27 +25,35 @@ function Login() {
 
     if (isLoginPage) {
       body.style.overflow = "hidden"; // hidden scrollbar
-    } else {
-      body.style.overflow = "auto"; // scrollbar back
     }
+
+    return () => (body.style.overflow = "auto"); // return to initial scroll
   }, [location]);
 
   function handleSubmit(e) {
     e.preventDefault();
+
     if (email && password) login(email, password);
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/app", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <>
       <section className="relative w-full h-full bg-[#f2f2f2] hide-scroll">
         <NavBar />
+
         <form
           className="w-full h-screen flex justify-center items-center"
           onSubmit={handleSubmit}
         >
           <div
             className="w-[22rem] h-[25rem] bg-green-600 shadow-2xl
-          rounded-[3rem] flex flex-col p-6 relative justify-evenly"
+          rounded-[3rem] flex flex-col p-6 relative justify-evenly items-center"
           >
             <p className="text-white relative text-3xl font-bold">
               Email address{" "}
@@ -61,6 +79,9 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
+
+            {error && <Error />}
+
             <div className="flex justify-end">
               <button className=" p-3 bg-gray-900 w-[13rem] h-[3rem] rounded-2xl text-white font-bold hover:bg-gray-950 transition-all ease-in duration-300 hover:shadow-2xl">
                 Login

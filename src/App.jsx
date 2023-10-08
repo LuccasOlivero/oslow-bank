@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./pages/AppLayout";
 import Login from "./pages/Login";
 import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./pages/ProtectedRoute";
+import { AccountProvider } from "./contexts/AccountContext";
 
 function App() {
   return (
@@ -11,7 +13,16 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route index path="/" element={<Main />} />
-            <Route path="/App" element={<AppLayout />} />
+            <Route
+              path="/App"
+              element={
+                <ProtectedRoute>
+                  <AccountProvider>
+                    <AppLayout />
+                  </AccountProvider>
+                </ProtectedRoute>
+              }
+            />
             <Route path="/login" element={<Login />}></Route>
           </Routes>
         </BrowserRouter>

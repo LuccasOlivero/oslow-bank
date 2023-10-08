@@ -1,8 +1,11 @@
-import { useContext, createContext, useReducer } from "react";
+import { useContext, createContext, useReducer, useState } from "react";
+import Error from "../components/Error";
+
 const FAKE_USER = {
-  name: "admin",
+  name: "Lucas",
   email: "admin@admin.com",
   password: "admin",
+  amount: 23.05,
 };
 
 const AuthContext = createContext();
@@ -25,21 +28,41 @@ function reducer(state, action) {
 
 function AuthProvider({ children }) {
   const [{ user, isAuthenticated }, disppath] = useReducer(
-    initialState,
-    reducer
+    reducer,
+    initialState
   );
+  const [error, setError] = useState(null);
+  const [email, setEmail] = useState("admin@admin.com");
+  const [password, setPassword] = useState("admin");
 
   function login(email, password) {
-    // console.log(email, pas);
-    if (email === FAKE_USER.password && password === FAKE_USER.password)
+    if (email !== FAKE_USER.email || password !== FAKE_USER.password) {
+      setError(true);
+    }
+
+    if (email === FAKE_USER.email && password === FAKE_USER.password)
       disppath({ type: "login", payload: FAKE_USER });
   }
 
   function logout() {
     disppath({ type: "logout" });
   }
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated,
+        login,
+        logout,
+        error,
+        setError,
+        email,
+        setEmail,
+        password,
+        setPassword,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
