@@ -17,6 +17,7 @@ import {
 import OptionBank from "../components/OptionBank";
 import { useAuth } from "../contexts/AuthContext";
 import { useAccount } from "../contexts/AccountContext";
+import BankOptionsManager from "../components/BankOptionsManager";
 function AppLayout() {
   const { user } = useAuth();
   const { test } = useAccount();
@@ -32,26 +33,29 @@ function AppLayout() {
 
         <section className="flex justify-center relative h-full w-full bg-[#f2f2f2] ">
           <div className="grid grid-cols-3 gap-6 max-w-[1300px] my-[3rem] w-full">
-            <div className="bg-white w-full h-full relative rounded-[3rem] text-gray-900 p-8 flex flex-col justify-between items-center shadow-2xl row-span-3">
-              <h3 className="text-4xl font-bold">
+            <BankOptionsManager />
+            <div className="bg-gray-900 w-full h-full relative rounded-[3rem] text-white py-8 px-12 flex flex-col justify-between items-center shadow-2xl row-span-2">
+              <h3 className="relative text-4xl font-bold">
                 👋 Welcome
                 <br />
-                {user.name}
+                <span className="text-green-600">{user.name}</span>
               </h3>
               <p className="text-6xl ">
                 {user.amount},00 <br /> USD
               </p>
-              <p className="text-xl text-green-600 font-bold uppercase">
-                Currency
-              </p>
+              <select className="text-base text-white uppercase w-full rounded-xl bg-green-600 px-6 outline-none h-[2rem] text-center">
+                <option selected>Change Currency</option>
+                <option value="">USD</option>
+                <option value="">EUR</option>
+              </select>
             </div>
 
-            <div className="bg-green-600 w-full h-full relative rounded-[3rem] text-white p-8 flex flex-col justify-between shadow-2xl col-span-2 row-span-3 mb-3">
+            <div className="bg-green-600 w-full h-full relative rounded-[3rem] text-white py-8 px-12 flex flex-col justify-between shadow-2xl col-span-2 row-span-2 mb-3 items-start">
               <h3 className="text-4xl font-bold">
                 How can we assist you?
-                <span className="absolute w-[8rem] h-[3px] bg-gray-900 left-[2.1rem] top-[4.5rem]"></span>
+                {/* <span className="absolute w-[18rem] h-[3px] bg-gray-900 left-[2.1rem] top-[4.5rem]"></span> */}
               </h3>
-              <div className="flex flex-wrap gap-6 justify-center text-center text-4xl">
+              <div className="flex flex-wrap gap-6 justify-between text-center text-4xl">
                 <span onClick={handleClick}>
                   <OptionBank type={"Deposit"} icon={faDollarSign} />
                 </span>
@@ -94,14 +98,14 @@ function AppLayout() {
               </div>
             </div>
 
-            <div className="bg-gray-900 w-full relative rounded-[3rem] p-8 flex flex-col shadow-2xl col-span-3 row-start-4 row-end-7">
-              <h3 className="text-white text-4xl font-bold mb-6">
+            <div className="bg-white w-full relative rounded-[3rem] py-8 px-12 flex flex-col shadow-2xl col-span-3 ">
+              <h3 className="text-gray-900 text-4xl font-bold mb-6 relative">
                 Movements
-                <span className="absolute w-[6rem] h-[3px] bg-green-600 left-[2.1rem] top-[4.5rem]"></span>
+                <span className="absolute w-[9rem] h-[3px] bg-green-600 left-0 top-[2.5rem]"></span>
               </h3>
 
               <div className="grid grid-cols-1 gap-2">
-                <div className="w-full h-[4rem] bg-neutral-200 rounded-md py-2 px-6 flex items-center justify-between">
+                <div className="w-full h-[4rem] bg-[#f2f2f2] rounded-md py-2 px-6 flex items-center justify-between">
                   <div className="flex">
                     <FontAwesomeIcon
                       icon={faMoneyBillTransfer}
@@ -118,7 +122,7 @@ function AppLayout() {
                   </div>
                 </div>
 
-                <div className="w-full h-[4rem] bg-neutral-200 rounded-md py-2 px-6 flex items-center justify-between">
+                <div className="w-full h-[4rem] bg-[#f2f2f2] rounded-md py-2 px-6 flex items-center justify-between">
                   <div className="flex">
                     <FontAwesomeIcon
                       icon={faMoneyCheck}
@@ -135,7 +139,7 @@ function AppLayout() {
                   </div>
                 </div>
 
-                <div className="w-full h-[4rem] bg-neutral-200 rounded-md py-2 px-6 flex items-center justify-between">
+                <div className="w-full h-[4rem] bg-[#f2f2f2] rounded-md py-2 px-6 flex items-center justify-between">
                   <div className="flex">
                     <FontAwesomeIcon
                       icon={faRightLeft}
