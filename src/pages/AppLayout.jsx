@@ -20,10 +20,10 @@ import { useAccount } from "../contexts/AccountContext";
 import BankOptionsManager from "../components/BankOptionsManager";
 function AppLayout() {
   const { user } = useAuth();
-  const { test } = useAccount();
+  const { setOptionsActive, optionsActive } = useAccount();
 
   function handleClick() {
-    console.log(test);
+    setOptionsActive(() => !optionsActive);
   }
 
   return (

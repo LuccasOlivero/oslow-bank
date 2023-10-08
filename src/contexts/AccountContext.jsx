@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 
 const AccountContext = createContext();
 
@@ -10,9 +10,12 @@ function reducer(state, action) {}
 
 function AccountProvider({ children }) {
   const [state, dispath] = useReducer(reducer, initialState);
-  const test = "it works";
+  const [optionsActive, setOptionsActive] = useState(true);
+
   return (
-    <AccountContext.Provider value={{ test }}>
+    <AccountContext.Provider
+      value={{ dispath, optionsActive, setOptionsActive }}
+    >
       {children}
     </AccountContext.Provider>
   );

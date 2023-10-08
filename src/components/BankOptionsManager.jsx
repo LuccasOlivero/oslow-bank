@@ -1,26 +1,36 @@
+import { useAccount } from "../contexts/AccountContext";
+
 function BankOptionsManager() {
+  const { optionsActive, setOptionsActive } = useAccount();
+  //   setOptionsActive(false);
   return (
-    <section className="bg-white w-full col-span-3 rounded-[2.5rem] shadow-xl py-8 px-12 flex justify-between">
-      <div className="flex items-center">
-        <p className="font-semibold text-lg mr-4">Amout</p>
+    <section
+      className={`absolute ${
+        optionsActive
+          ? "w-[full] col-span-3 rounded-[3rem] shadow-xl py-8 px-12 flex flex-col z-[99] justify-between bg-gray-900 relative"
+          : ""
+      }  transition-all ease-in duration-200`}
+    >
+      {/* <div className="">
+        <p className="font-semibold text-4xl mr-4 text-white">Amout</p>
         <input
           type="number"
           className=" h-[2.5rem] outline-none bg-[#f2f2f2] rounded-xl px-6 appearance-none "
         />
       </div>
 
-      <div className="flex items-center">
-        <p className="font-semibold text-lg mr-4">Account to deposit</p>
+      <div className="">
+        <p className="font-semibold text-4xl mr-4 text-white">Currency</p>
         <input
           type="number"
           name=""
           className="h-[2.5rem] outline-none bg-[#f2f2f2] rounded-xl px-6 appearance-none "
         />
-      </div>
+      </div> */}
 
-      <button className="w-[7rem] h-[2.5rem] bg-gray-900 rounded-2xl text-white flex items-center justify-center text-base font-bold">
+      {/* <button className="w-[7rem] h-[2.5rem] bg-green-600 rounded-2xl text-white flex items-center justify-center text-base font-bold">
         Send
-      </button>
+      </button> */}
     </section>
   );
 }
