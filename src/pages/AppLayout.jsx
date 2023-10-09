@@ -18,14 +18,16 @@ import OptionBank from "../components/OptionBank";
 import { useAccount } from "../contexts/AccountContext";
 import BankOptionsManager from "../components/BankOptionsManager";
 import { useAuth } from "../contexts/AuthContext";
-// import { FAKE_BALANCE } from "../constants/constant";
 
 function AppLayout() {
   const { user } = useAuth();
-  const { setOptionsActive, optionsActive, userBalance } = useAccount();
+  const { setOptionsActive, userBalance, typeOfOperation, setTypeOfOperation } =
+    useAccount();
 
-  function handleClick() {
-    setOptionsActive(() => !optionsActive);
+  function handleClickOperation(type) {
+    setOptionsActive(() => true);
+    const stringType = type;
+    setTypeOfOperation(stringType);
   }
 
   return (
@@ -35,7 +37,7 @@ function AppLayout() {
 
         <section className="flex justify-center relative h-full w-full bg-[#f2f2f2] ">
           <div className="grid grid-cols-3 gap-6 max-w-[1300px] my-[3rem] w-full">
-            <BankOptionsManager />
+            <BankOptionsManager type={typeOfOperation} />
             <div className="bg-gray-900 w-full h-full relative rounded-[3rem] text-white py-8 px-12 flex flex-col justify-between items-center shadow-2xl row-span-2">
               <h3 className="relative text-4xl font-bold">
                 👋 Welcome
@@ -58,11 +60,11 @@ function AppLayout() {
                 {/* <span className="absolute w-[18rem] h-[3px] bg-gray-900 left-[2.1rem] top-[4.5rem]"></span> */}
               </h3>
               <div className="flex flex-wrap gap-6 justify-between text-center text-4xl">
-                <span onClick={handleClick}>
+                <span onClick={() => handleClickOperation("deposit")}>
                   <OptionBank type={"Deposit"} icon={faDollarSign} />
                 </span>
 
-                <span>
+                <span onClick={() => handleClickOperation("withdraw")}>
                   <OptionBank type={"Withdraw"} icon={faCreditCard} />
                 </span>
 
