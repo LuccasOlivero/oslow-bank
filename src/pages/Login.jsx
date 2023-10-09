@@ -1,6 +1,6 @@
 import NavBar from "../components/NavBar";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Error from "../components/Error";

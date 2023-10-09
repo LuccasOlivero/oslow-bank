@@ -15,12 +15,14 @@ import {
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
 import OptionBank from "../components/OptionBank";
-import { useAuth } from "../contexts/AuthContext";
 import { useAccount } from "../contexts/AccountContext";
 import BankOptionsManager from "../components/BankOptionsManager";
+import { useAuth } from "../contexts/AuthContext";
+// import { FAKE_BALANCE } from "../constants/constant";
+
 function AppLayout() {
   const { user } = useAuth();
-  const { setOptionsActive, optionsActive } = useAccount();
+  const { setOptionsActive, optionsActive, userBalance } = useAccount();
 
   function handleClick() {
     setOptionsActive(() => !optionsActive);
@@ -41,10 +43,10 @@ function AppLayout() {
                 <span className="text-green-600">{user.name}</span>
               </h3>
               <p className="text-6xl ">
-                {user.amount},00 <br /> USD
+                {userBalance},00 <br /> USD
               </p>
               <select className="text-base text-white uppercase w-full rounded-xl bg-green-600 px-6 outline-none h-[2rem] text-center">
-                <option selected>Change Currency</option>
+                {/* <option selected>Change Currency</option> */}
                 <option value="">USD</option>
                 <option value="">EUR</option>
               </select>

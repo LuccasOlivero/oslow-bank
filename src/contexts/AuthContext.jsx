@@ -5,7 +5,6 @@ const FAKE_USER = {
   name: "Lucas",
   email: "admin@admin.com",
   password: "admin",
-  amount: 230.5,
 };
 
 const AuthContext = createContext();
