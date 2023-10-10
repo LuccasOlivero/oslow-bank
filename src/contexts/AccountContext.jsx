@@ -4,8 +4,8 @@ const AccountContext = createContext();
 
 const initialState = {
   userBalance: {
-    EUR: 100,
     USD: 200,
+    EUR: 100,
   },
 };
 
@@ -14,10 +14,19 @@ function reducer(state, action) {
     case "deposit":
       return {
         ...state,
-        userBalance: state.userBalance + action.payload,
+        userBalance: {
+          ...state.userBalance,
+          USD: state.userBalance.USD + action.payload,
+        },
       };
     case "withdraw":
-      return { ...state, userBalance: state.userBalance - action.payload };
+      return {
+        ...state,
+        userBalance: {
+          ...state.userBalance,
+          USD: state.userBalance.USD - action.payload,
+        },
+      };
     default:
       "Unknow action";
   }
@@ -39,6 +48,7 @@ function AccountProvider({ children }) {
   }
 
   function operationWithdraw(input) {
+    console.log(input);
     if (input > userBalance) return;
     dispatch({ type: "withdraw", payload: input });
   }

@@ -58,7 +58,7 @@ function AppLayout() {
                 {userBalance[selectedCurrency]},00 <br /> {selectedCurrency}
               </p>
               <select
-                className="text-base text-white uppercase w-full rounded-xl bg-green-600 px-6 outline-none h-[2rem] text-center"
+                className="text-base text-white uppercase w-full rounded-xl bg-green-600 px-6 outline-none h-[2.5rem] text-center"
                 value={selectedCurrency}
                 onChange={handleCurrencyChange}
               >

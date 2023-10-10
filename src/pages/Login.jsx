@@ -44,7 +44,7 @@ function Login() {
 
   return (
     <>
-      <section className="relative w-full h-full bg-[#f2f2f2] ">
+      <section className="relative w-full h-full bg-[#f2f2f2]">
         <NavBar />
 
         <div className="w-full h-screen flex justify-center items-center relative">

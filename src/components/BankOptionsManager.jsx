@@ -23,10 +23,10 @@ function BankOptionsManager({ type }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (type === "deposit" && inputAmount > 0 && accNo.length <= 7) {
+    if (type === "deposit" && inputAmount > 0 && accNo.length >= 7)
       depositAccount(inputAmount);
-    } else return setError(true);
-    if (inputAmount <= userBalance && type === "withdraw")
+
+    if (type === "withdraw" && inputAmount < userBalance.USD)
       operationWithdraw(inputAmount);
 
     setInputAmount(0);
@@ -92,22 +92,6 @@ function BankOptionsManager({ type }) {
               />
             </div>
 
-            <div className="flex flex-col justify-between h-full">
-              <p className="relative font-semibold text-4xl mr-4 text-gray-900">
-                Currency
-                <span className="absolute right-[2.4rem] bottom-[-.6rem]">
-                  <FontAwesomeIcon icon={faTurnDown} size="xs" />
-                </span>
-              </p>
-
-              <input
-                type="number"
-                name=""
-                className="h-[2.5rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none"
-                placeholder="Ex: USD/EUR"
-              />
-            </div>
-
             {type === "deposit" ? (
               <div className="flex flex-col justify-between h-full">
                 <p className="relative font-semibold text-4xl mr-4 text-gray-900">
@@ -126,6 +110,23 @@ function BankOptionsManager({ type }) {
                 />
               </div>
             ) : null}
+
+            <div className="flex flex-col justify-between h-full">
+              <p className="relative font-semibold text-4xl mr-4 text-gray-900">
+                Currency
+                <span className="absolute right-[-1.8rem] bottom-[-.6rem]">
+                  <FontAwesomeIcon icon={faTurnDown} size="xs" />
+                </span>
+              </p>
+
+              <select
+                className="text-base text-white uppercase w-full rounded-xl bg-green-600 px-6 outline-none h-[2.5rem] text-center shadow-lg"
+                disabled={true}
+              >
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+              </select>
+            </div>
 
             <div className="flex flex-col justify-end h-full">
               <button className="w-[7rem] h-[2.5rem] bg-green-600 rounded-2xl text-white flex items-center justify-center text-base font-bold shadow-xl hover:bg-green-700 hover:shadow-2xl">
