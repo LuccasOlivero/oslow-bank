@@ -21,8 +21,18 @@ import { useAuth } from "../contexts/AuthContext";
 
 function AppLayout() {
   const { user } = useAuth();
-  const { setOptionsActive, userBalance, typeOfOperation, setTypeOfOperation } =
-    useAccount();
+  const {
+    setOptionsActive,
+    userBalance,
+    typeOfOperation,
+    setTypeOfOperation,
+    selectedCurrency,
+    setSelectedCurrency,
+  } = useAccount();
+
+  function handleCurrencyChange(e) {
+    setSelectedCurrency(() => e.target.value);
+  }
 
   function handleClickOperation(type) {
     setOptionsActive(() => true);
@@ -45,12 +55,15 @@ function AppLayout() {
                 <span className="text-green-600">{user.name}</span>
               </h3>
               <p className="text-6xl ">
-                {userBalance},00 <br /> USD
+                {userBalance[selectedCurrency]},00 <br /> {selectedCurrency}
               </p>
-              <select className="text-base text-white uppercase w-full rounded-xl bg-green-600 px-6 outline-none h-[2rem] text-center">
-                {/* <option selected>Change Currency</option> */}
-                <option value="">USD</option>
-                <option value="">EUR</option>
+              <select
+                className="text-base text-white uppercase w-full rounded-xl bg-green-600 px-6 outline-none h-[2rem] text-center"
+                value={selectedCurrency}
+                onChange={handleCurrencyChange}
+              >
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
               </select>
             </div>
 
