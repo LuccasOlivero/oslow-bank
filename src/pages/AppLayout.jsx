@@ -28,6 +28,8 @@ function AppLayout() {
     setTypeOfOperation,
     selectedCurrency,
     setSelectedCurrency,
+    activeOption,
+    setActiveOption,
   } = useAccount();
 
   function handleCurrencyChange(e) {
@@ -39,6 +41,10 @@ function AppLayout() {
     const stringType = type;
     setTypeOfOperation(stringType);
   }
+
+  const handleOptionClick = (option) => {
+    setActiveOption(option);
+  };
 
   return (
     <>
@@ -74,43 +80,93 @@ function AppLayout() {
               </h3>
               <div className="flex flex-wrap gap-6 justify-between text-center text-4xl">
                 <span onClick={() => handleClickOperation("deposit")}>
-                  <OptionBank type={"Deposit"} icon={faDollarSign} />
+                  <OptionBank
+                    type={"Deposit"}
+                    icon={faDollarSign}
+                    isActive={activeOption === 1}
+                    onClick={() => handleOptionClick(1)}
+                  />
                 </span>
 
                 <span onClick={() => handleClickOperation("withdraw")}>
-                  <OptionBank type={"Withdraw"} icon={faCreditCard} />
+                  <OptionBank
+                    type={"Withdraw"}
+                    icon={faCreditCard}
+                    isActive={activeOption === 2}
+                    onClick={() => handleOptionClick(2)}
+                  />
                 </span>
 
                 <span>
-                  <OptionBank type={"Payments"} icon={faMoneyBillTransfer} />
+                  <OptionBank
+                    type={"Payments"}
+                    icon={faMoneyBillTransfer}
+                    isActive={activeOption === 3}
+                    onClick={() => handleOptionClick(3)}
+                  />
                 </span>
 
                 <span>
-                  <OptionBank type={"Invest"} icon={faSackDollar} />
+                  <OptionBank
+                    type={"Invest"}
+                    icon={faSackDollar}
+                    isActive={activeOption === 4}
+                    onClick={() => handleOptionClick(4)}
+                  />
                 </span>
 
                 <span>
-                  <OptionBank type={"Transfer"} icon={faChartSimple} />
+                  <OptionBank
+                    type={"Transfer"}
+                    icon={faChartSimple}
+                    isActive={activeOption === 5}
+                    onClick={() => handleOptionClick(5)}
+                  />
                 </span>
 
                 <span>
-                  <OptionBank type={"Loan"} icon={faLandmark} />
+                  <OptionBank
+                    type={"Loan"}
+                    icon={faLandmark}
+                    isActive={activeOption === 6}
+                    onClick={() => handleOptionClick(6)}
+                  />
                 </span>
 
                 <span>
-                  <OptionBank type={"Qr"} icon={faQrcode} />
+                  <OptionBank
+                    type={"Qr"}
+                    icon={faQrcode}
+                    isActive={activeOption === 7}
+                    onClick={() => handleOptionClick(7)}
+                  />
                 </span>
 
                 <span>
-                  <OptionBank type={"Insurance"} icon={faUnlockKeyhole} />
+                  <OptionBank
+                    type={"Insurance"}
+                    icon={faUnlockKeyhole}
+                    isActive={activeOption === 8}
+                    onClick={() => handleOptionClick(8)}
+                  />
                 </span>
 
                 <span>
-                  <OptionBank type={"Help"} icon={faCircleInfo} />
+                  <OptionBank
+                    type={"Help"}
+                    icon={faCircleInfo}
+                    isActive={activeOption === 9}
+                    onClick={() => handleOptionClick(9)}
+                  />
                 </span>
 
                 <span>
-                  <OptionBank type={"More"} icon={faCircleQuestion} />
+                  <OptionBank
+                    type={"More"}
+                    icon={faCircleQuestion}
+                    isActive={activeOption === 10}
+                    onClick={() => handleOptionClick(10)}
+                  />
                 </span>
               </div>
             </div>

@@ -10,35 +10,38 @@ function BankOptionsManager({ type }) {
     setOptionsActive,
     operationWithdraw,
     userBalance,
+    typeOfOperation,
     // selectedCurrency,
     // setSelectedCurrency,
+    setActiveOption,
   } = useAccount();
-  const [inputAmount, setInputAmount] = useState(0);
-  const [accNo, setAccNo] = useState("");
   const [error, setError] = useState(false);
+  // const [accNo, setAccNo] = useState("");
+  const [inputAmount, setInputAmount] = useState(0);
 
   function handleDeposit(e) {
-    setInputAmount(() => Number(e.target.value) + inputAmount);
+    const newValue = +e.target.value;
+    setInputAmount(newValue);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (type === "deposit" && inputAmount > 0 && accNo.length >= 7)
-      depositAccount(inputAmount);
+    if (type === "deposit" && inputAmount > 0) depositAccount(inputAmount);
 
     if (type === "withdraw" && inputAmount < userBalance.USD)
       operationWithdraw(inputAmount);
 
     setInputAmount(0);
     setOptionsActive(false);
-    setAccNo(0);
+    setActiveOption(null);
+    // setAccNo(0);
   }
 
-  function handleInputAccNo(e) {
-    e.preventDefault();
-    const accInput = e.target.value;
-    setAccNo(accInput);
-  }
+  // function handleInputAccNo(e) {
+  //   e.preventDefault();
+  //   const accInput = e.target.value;
+  //   setAccNo(accInput);
+  // }
 
   // const handleCurrencyChange = (event) => {
   //   setSelectedCurrency(event.target.value);
@@ -67,75 +70,97 @@ function BankOptionsManager({ type }) {
       >
         {error ? "All fields are required." : null}
       </div>
-      <form
+
+      <div
         className={` ${
           optionsActive
-            ? "w-full col-span-3 rounded-[3rem] shadow-xl py-8 px-12 z-[99] justify-evenly bg-white relative items-center flex h-[10rem]"
+            ? "w-full col-span-3 rounded-[3rem] shadow-xl py-8 px-12 z-[99] bg-white h-[13rem]"
             : "h-2 w-full col-span-3"
-        } duration-300`}
-        onSubmit={(e) => handleSubmit(e)}
+        } duration-200`}
       >
         {optionsActive && (
           <>
-            <div className="flex flex-col justify-between h-full">
-              <p className="relative font-semibold text-4xl mr-4 text-gray-900">
-                Amout
-                <span className="absolute right-[4.3rem] bottom-[-.6rem]">
-                  <FontAwesomeIcon icon={faTurnDown} size="xs" />
-                </span>
-              </p>
-              <input
-                type="number"
-                className=" h-[2.5rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none"
-                onChange={(e) => handleDeposit(e)}
-                placeholder="Ex: 100"
-              />
+            <div className="flex justify-between">
+              <h2 className="relative text-4xl items-start pb-3 first-letter:uppercase font-semibold">
+                {typeOfOperation}
+                <span className="absolute w-[6rem] h-[3px] bg-green-600 left-0 top-[2.5rem]"></span>
+              </h2>
+
+              <span
+                className="font-bold text-4xl"
+                onClick={() => {
+                  setOptionsActive(false);
+                  setActiveOption(null);
+                }}
+              >
+                X
+              </span>
             </div>
 
-            {type === "deposit" ? (
+            <form
+              className="flex justify-evenly relative items-end"
+              onSubmit={(e) => handleSubmit(e)}
+            >
               <div className="flex flex-col justify-between h-full">
-                <p className="relative font-semibold text-4xl mr-4 text-gray-900">
-                  Acct No.
-                  <span className="absolute right-[3rem] bottom-[-.6rem]">
+                <p className="relative font-semibold text-4xl mr-4 text-gray-900 pb-3">
+                  Amout
+                  <span className="absolute right-[4.3rem] bottom-0">
+                    <FontAwesomeIcon icon={faTurnDown} size="xs" />
+                  </span>
+                </p>
+                <input
+                  type="number"
+                  className=" h-[2.5rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none"
+                  onChange={handleDeposit}
+                  placeholder="Ex: 100"
+                />
+              </div>
+
+              {type === "transfer" ? (
+                <div className="flex flex-col justify-between h-full">
+                  <p className="relative font-semibold text-4xl mr-4 text-gray-900 pb-3">
+                    Acct No.
+                    <span className="absolute right-[3rem] bottom-0">
+                      <FontAwesomeIcon icon={faTurnDown} size="xs" />
+                    </span>
+                  </p>
+
+                  <input
+                    type="number"
+                    name=""
+                    className="h-[2.5rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none"
+                    placeholder="Ex: 1234567890"
+                    // onChange={(e) => handleInputAccNo(e)}
+                  />
+                </div>
+              ) : null}
+
+              <div className="flex flex-col justify-between h-full">
+                <p className="relative font-semibold text-4xl mr-4 text-gray-900 pb-3">
+                  Currency
+                  <span className="absolute right-[-1.8rem] bottom-0">
                     <FontAwesomeIcon icon={faTurnDown} size="xs" />
                   </span>
                 </p>
 
-                <input
-                  type="number"
-                  name=""
-                  className="h-[2.5rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none"
-                  placeholder="Ex: 1234567890"
-                  onChange={(e) => handleInputAccNo(e)}
-                />
+                <select
+                  className="text-base text-white uppercase w-full rounded-xl bg-green-600 px-6 outline-none h-[2.5rem] text-center shadow-lg"
+                  disabled={true}
+                >
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                </select>
               </div>
-            ) : null}
 
-            <div className="flex flex-col justify-between h-full">
-              <p className="relative font-semibold text-4xl mr-4 text-gray-900">
-                Currency
-                <span className="absolute right-[-1.8rem] bottom-[-.6rem]">
-                  <FontAwesomeIcon icon={faTurnDown} size="xs" />
-                </span>
-              </p>
-
-              <select
-                className="text-base text-white uppercase w-full rounded-xl bg-green-600 px-6 outline-none h-[2.5rem] text-center shadow-lg"
-                disabled={true}
-              >
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-              </select>
-            </div>
-
-            <div className="flex flex-col justify-end h-full">
-              <button className="w-[7rem] h-[2.5rem] bg-green-600 rounded-2xl text-white flex items-center justify-center text-base font-bold shadow-xl hover:bg-green-700 hover:shadow-2xl">
-                Send
-              </button>
-            </div>
+              <div className="flex flex-col justify-end h-full">
+                <button className="w-[7rem] h-[2.5rem] bg-green-600 rounded-2xl text-white flex items-center justify-center text-base font-bold shadow-xl hover:bg-green-700 hover:shadow-2xl">
+                  Send
+                </button>
+              </div>
+            </form>
           </>
         )}
-      </form>
+      </div>
     </>
   );
 }

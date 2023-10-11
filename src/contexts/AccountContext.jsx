@@ -41,9 +41,11 @@ function AccountProvider({ children }) {
   const [typeOfOperation, setTypeOfOperation] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState("USD");
   const [amount, setAmount] = useState(230.5);
+  const [activeOption, setActiveOption] = useState(null);
 
   function depositAccount(input) {
     if (input < 1) return;
+
     dispatch({ type: "deposit", payload: input });
   }
 
@@ -70,6 +72,8 @@ function AccountProvider({ children }) {
         currency,
         selectedCurrency,
         setSelectedCurrency,
+        activeOption,
+        setActiveOption,
       }}
     >
       {children}
