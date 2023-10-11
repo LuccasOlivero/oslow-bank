@@ -23,10 +23,14 @@ function BankOptionsManager({ type }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (type === "deposit" && inputAmount > 0) depositAccount(inputAmount);
 
-    if (type === "withdraw" && inputAmount < userBalance.USD)
-      operationWithdraw(inputAmount);
+    if (type === "deposit") {
+      if (inputAmount > 0) depositAccount(inputAmount);
+    }
+
+    if (type === "withdraw") {
+      if (inputAmount < userBalance.USD) operationWithdraw(inputAmount);
+    }
 
     setInputAmount(0);
     setOptionsActive(false);
@@ -51,7 +55,7 @@ function BankOptionsManager({ type }) {
         className={`${
           error
             ? "h-[2rem] w-full col-span-3 bg-red-500 bottom-9 flex justify-center items-center text-white font-semibold uppercase rounded-2xl"
-            : "h-1 w-full col-span-3"
+            : "h-0 w-full col-span-3"
         } duration-300`}
       >
         {error ? "All fields are required." : null}
@@ -61,8 +65,8 @@ function BankOptionsManager({ type }) {
         className={` ${
           optionsActive
             ? "w-full col-span-3 rounded-[3rem] shadow-xl py-8 px-12 z-[99] bg-white h-[13rem]"
-            : "h-2 w-full col-span-3"
-        } duration-200`}
+            : "h-0 w-full col-span-3"
+        } duration-300`}
       >
         {optionsActive && (
           <>
@@ -84,7 +88,11 @@ function BankOptionsManager({ type }) {
             </div>
 
             <form
-              className="flex justify-evenly relative items-end"
+              className={`${
+                optionsActive
+                  ? "flex justify-evenly relative items-end"
+                  : "relative top-0"
+              }`}
               onSubmit={(e) => handleSubmit(e)}
             >
               <div className="flex flex-col justify-between h-full">

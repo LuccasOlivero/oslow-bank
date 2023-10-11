@@ -7,6 +7,7 @@ const initialState = {
     USD: 200,
     EUR: 100,
   },
+  movements: [],
 };
 
 function reducer(state, action) {
@@ -42,12 +43,10 @@ function AccountProvider({ children }) {
 
   function depositAccount(input) {
     if (input < 1) return;
-
     dispatch({ type: "deposit", payload: input });
   }
 
   function operationWithdraw(input) {
-    console.log(input);
     if (input > userBalance) return;
     dispatch({ type: "withdraw", payload: input });
   }
