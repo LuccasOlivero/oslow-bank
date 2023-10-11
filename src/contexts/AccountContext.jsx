@@ -33,10 +33,7 @@ function reducer(state, action) {
 }
 
 function AccountProvider({ children }) {
-  const [{ userBalance, operation, currency }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [{ userBalance }, dispatch] = useReducer(reducer, initialState);
   const [optionsActive, setOptionsActive] = useState(false);
   const [typeOfOperation, setTypeOfOperation] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState("USD");
@@ -68,8 +65,6 @@ function AccountProvider({ children }) {
         typeOfOperation,
         setTypeOfOperation,
         operationWithdraw,
-        operation,
-        currency,
         selectedCurrency,
         setSelectedCurrency,
         activeOption,

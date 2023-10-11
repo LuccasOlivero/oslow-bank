@@ -11,12 +11,9 @@ function BankOptionsManager({ type }) {
     operationWithdraw,
     userBalance,
     typeOfOperation,
-    // selectedCurrency,
-    // setSelectedCurrency,
     setActiveOption,
   } = useAccount();
   const [error, setError] = useState(false);
-  // const [accNo, setAccNo] = useState("");
   const [inputAmount, setInputAmount] = useState(0);
 
   function handleDeposit(e) {
@@ -34,18 +31,7 @@ function BankOptionsManager({ type }) {
     setInputAmount(0);
     setOptionsActive(false);
     setActiveOption(null);
-    // setAccNo(0);
   }
-
-  // function handleInputAccNo(e) {
-  //   e.preventDefault();
-  //   const accInput = e.target.value;
-  //   setAccNo(accInput);
-  // }
-
-  // const handleCurrencyChange = (event) => {
-  //   setSelectedCurrency(event.target.value);
-  // };
 
   useEffect(() => {
     if (error) {
