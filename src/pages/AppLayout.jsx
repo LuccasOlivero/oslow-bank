@@ -1,13 +1,12 @@
 import NavBar from "../components/NavBar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,
   faCreditCard,
   faChartSimple,
   faSackDollar,
   faMoneyBillTransfer,
-  faMoneyCheck,
-  faRightLeft,
+  // faMoneyCheck,
+  // faRightLeft,
   faLandmark,
   faQrcode,
   faUnlockKeyhole,
@@ -18,6 +17,8 @@ import OptionBank from "../components/OptionBank";
 import { useAccount } from "../contexts/AccountContext";
 import BankOptionsManager from "../components/BankOptionsManager";
 import { useAuth } from "../contexts/AuthContext";
+// import Movements from "../components/Movements";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function AppLayout() {
   const { user } = useAuth();
@@ -30,6 +31,8 @@ function AppLayout() {
     setSelectedCurrency,
     activeOption,
     setActiveOption,
+    movements,
+    completeDate,
   } = useAccount();
 
   function handleCurrencyChange(e) {
@@ -45,6 +48,11 @@ function AppLayout() {
   const handleOptionClick = (option) => {
     setActiveOption(option);
   };
+
+  function keyGenerator() {
+    return Math.random().toString(36).padEnd(2, 9);
+  }
+  const uniqueKey = keyGenerator();
 
   return (
     <>
@@ -178,24 +186,35 @@ function AppLayout() {
               </h3>
 
               <div className="grid grid-cols-1 gap-2">
-                <div className="w-full h-[4rem] bg-[#f2f2f2] rounded-md py-2 px-6 flex items-center justify-between">
-                  <div className="flex">
-                    <FontAwesomeIcon
-                      icon={faMoneyBillTransfer}
-                      color="green"
-                      size="xl"
-                    />
-                    <p className="text-gray-900 font-semibold ml-2">Withdraw</p>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <p className="text-gray-900 font-bold ">- 40,5</p>
-                    <p className="text-gray-900 text-xs font-light">
-                      23/05/2000
-                    </p>
-                  </div>
-                </div>
+                {movements.map((operation) => {
+                  return (
+                    <div
+                      className="w-full h-[4rem] bg-[#f2f2f2] rounded-md py-2 px-6 flex items-center justify-between"
+                      key={uniqueKey}
+                    >
+                      <div className="flex">
+                        <FontAwesomeIcon
+                          icon={faMoneyBillTransfer}
+                          color="green"
+                          size="xl"
+                        />
+                        <p className="text-gray-900 font-semibold ml-2">
+                          {movements["withdraw"] ? "Withdraw" : ""}
+                        </p>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <p className="text-gray-900 font-bold ">
+                          - {operation.typeOfOperation}
+                        </p>
 
-                <div className="w-full h-[4rem] bg-[#f2f2f2] rounded-md py-2 px-6 flex items-center justify-between">
+                        <p className="text-gray-900 text-xs font-light">
+                          {completeDate}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+                {/* <div className="w-full h-[4rem] bg-[#f2f2f2] rounded-md py-2 px-6 flex items-center justify-between">
                   <div className="flex">
                     <FontAwesomeIcon
                       icon={faMoneyCheck}
@@ -227,7 +246,7 @@ function AppLayout() {
                       23/05/2000
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

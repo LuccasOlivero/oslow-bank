@@ -1,4 +1,10 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useReducer,
+  useState,
+  useEffect,
+} from "react";
 import PropTypes from "prop-types";
 
 const AccountContext = createContext();
@@ -8,7 +14,13 @@ const initialState = {
     USD: 200,
     EUR: 100,
   },
-  movements: [],
+  movements: [
+    {
+      withdraw: 30,
+      deposit: 60,
+      transfer: 90,
+    },
+  ],
   loans: null,
 };
 
@@ -36,7 +48,10 @@ function reducer(state, action) {
         loans: action.payload,
         userBalance: {
           ...state.userBalance,
-          USD: state.userBalance.USD + state.loans,
+          USD:
+            state.loans === null
+              ? state.userBalance.USD + action.payload
+              : state.userBalance.USD,
         },
       };
     default:
@@ -45,12 +60,33 @@ function reducer(state, action) {
 }
 
 function AccountProvider({ children }) {
-  const [{ userBalance }, dispatch] = useReducer(reducer, initialState);
+  const [{ userBalance, movements }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
+  // active menu options of type operations
   const [optionsActive, setOptionsActive] = useState(false);
   const [typeOfOperation, setTypeOfOperation] = useState("");
+
+  // type of currency and input from user
   const [selectedCurrency, setSelectedCurrency] = useState("USD");
   const [amount, setAmount] = useState(230.5);
+
+  // setting active operation
   const [activeOption, setActiveOption] = useState(null);
+
+  // curr date of each movement
+  const [completeDate, setCompleteDate] = useState("");
+  useEffect(() => {
+    const currDate = new Date();
+
+    const day = currDate.getDate().toString().padStart(2, "0");
+    const mounth = (currDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = currDate.getFullYear();
+
+    const date = `${day}/${mounth}/${year}`;
+    setCompleteDate(date);
+  }, [movements]);
 
   function depositAccount(input) {
     if (input < 1) return;
@@ -83,6 +119,8 @@ function AccountProvider({ children }) {
         activeOption,
         setActiveOption,
         requestLoan,
+        movements,
+        completeDate,
       }}
     >
       {children}
