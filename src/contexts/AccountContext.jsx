@@ -8,6 +8,7 @@ const initialState = {
     EUR: 100,
   },
   movements: [],
+  loans: null,
 };
 
 function reducer(state, action) {
@@ -26,6 +27,15 @@ function reducer(state, action) {
         userBalance: {
           ...state.userBalance,
           USD: state.userBalance.USD - action.payload,
+        },
+      };
+    case "loan":
+      return {
+        ...state,
+        loans: action.payload,
+        userBalance: {
+          ...state.userBalance,
+          USD: state.userBalance.USD + state.loans,
         },
       };
     default:
@@ -51,6 +61,9 @@ function AccountProvider({ children }) {
     dispatch({ type: "withdraw", payload: input });
   }
 
+  function requestLoan(input) {
+    if (input < 10000) dispatch({ type: "loan", payload: input });
+  }
   return (
     <AccountContext.Provider
       value={{
@@ -68,6 +81,7 @@ function AccountProvider({ children }) {
         setSelectedCurrency,
         activeOption,
         setActiveOption,
+        requestLoan,
       }}
     >
       {children}

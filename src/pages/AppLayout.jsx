@@ -124,7 +124,7 @@ function AppLayout() {
                   />
                 </span>
 
-                <span>
+                <span onClick={() => handleClickOperation("loan")}>
                   <OptionBank
                     type={"Loan"}
                     icon={faLandmark}

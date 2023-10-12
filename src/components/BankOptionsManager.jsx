@@ -12,6 +12,7 @@ function BankOptionsManager({ type }) {
     userBalance,
     typeOfOperation,
     setActiveOption,
+    requestLoan,
   } = useAccount();
   const [error, setError] = useState(false);
   const [inputAmount, setInputAmount] = useState(0);
@@ -30,6 +31,10 @@ function BankOptionsManager({ type }) {
 
     if (type === "withdraw") {
       if (inputAmount < userBalance.USD) operationWithdraw(inputAmount);
+    }
+
+    if (type === "loan") {
+      if (inputAmount < 10000) requestLoan(inputAmount);
     }
 
     setInputAmount(0);
@@ -97,10 +102,10 @@ function BankOptionsManager({ type }) {
             >
               <div className="flex flex-col justify-between h-full">
                 <p className="relative font-semibold text-4xl mr-4 text-gray-900 pb-3">
-                  Amout
-                  <span className="absolute right-[4.3rem] bottom-0">
+                  {typeOfOperation === "loan" ? "Loan amount" : "Amount"}
+                  {/* <span className="absolute right-[3.2rem] bottom-0">
                     <FontAwesomeIcon icon={faTurnDown} size="xs" />
-                  </span>
+                  </span> */}
                 </p>
                 <input
                   type="number"
