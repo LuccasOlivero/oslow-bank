@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer, useState } from "react";
+import PropTypes from "prop-types";
 
 const AccountContext = createContext();
 
@@ -95,5 +96,9 @@ function useAccount() {
     throw new Error("AccountContext was used outside AccountProvider");
   return context;
 }
+
+AccountProvider.propTypes = {
+  children: PropTypes.string.isRequired, // Puedes reemplazar 'string' con el tipo de dato adecuado
+};
 
 export { useAccount, AccountProvider };

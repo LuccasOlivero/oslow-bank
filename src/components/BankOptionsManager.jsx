@@ -2,8 +2,10 @@ import { useAccount } from "../contexts/AccountContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTurnDown } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 function BankOptionsManager({ type }) {
+  // Deconstructing values from context with custom hook
   const {
     optionsActive,
     depositAccount,
@@ -17,6 +19,7 @@ function BankOptionsManager({ type }) {
   const [error, setError] = useState(false);
   const [inputAmount, setInputAmount] = useState(0);
 
+  // taking input value from ui and setting into an state
   function handleDeposit(e) {
     const newValue = +e.target.value;
     setInputAmount(newValue);
@@ -37,11 +40,13 @@ function BankOptionsManager({ type }) {
       if (inputAmount < 10000) requestLoan(inputAmount);
     }
 
+    // restoring some default values
     setInputAmount(0);
     setOptionsActive(false);
     setActiveOption(null);
   }
 
+  // handling erros into a BankOptions
   useEffect(() => {
     if (error) {
       // Si error está en true, espera 3 segundos y luego cambia a false
@@ -56,6 +61,7 @@ function BankOptionsManager({ type }) {
 
   return (
     <>
+      {/* error mensaje */}
       <div
         className={`${
           error
@@ -66,6 +72,7 @@ function BankOptionsManager({ type }) {
         {error ? "All fields are required." : null}
       </div>
 
+      {/* Form to an operation  */}
       <div
         className={` ${
           optionsActive
@@ -102,7 +109,10 @@ function BankOptionsManager({ type }) {
             >
               <div className="flex flex-col justify-between h-full">
                 <p className="relative font-semibold text-4xl mr-4 text-gray-900 pb-3">
-                  {typeOfOperation === "loan" ? "Loan amount" : "Amount"}
+                  {/* types of operations */}
+                  {typeOfOperation === "loan" ? "Loan amount" : ""}
+                  {typeOfOperation === "deposit" ? "Amount" : ""}
+                  {typeOfOperation === "withdraw" ? "Withdraw" : ""}
                   {/* <span className="absolute right-[3.2rem] bottom-0">
                     <FontAwesomeIcon icon={faTurnDown} size="xs" />
                   </span> */}
@@ -163,5 +173,10 @@ function BankOptionsManager({ type }) {
     </>
   );
 }
+
+// config eslit to avoid some props errors
+BankOptionsManager.propTypes = {
+  type: PropTypes.string.isRequired,
+};
 
 export default BankOptionsManager;
