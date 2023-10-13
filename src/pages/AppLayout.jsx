@@ -18,7 +18,8 @@ import { useAccount } from "../contexts/AccountContext";
 import BankOptionsManager from "../components/BankOptionsManager";
 import { useAuth } from "../contexts/AuthContext";
 // import Movements from "../components/Movements";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Movement from "../components/Movement";
 
 function AppLayout() {
   const { user } = useAuth();
@@ -32,7 +33,6 @@ function AppLayout() {
     activeOption,
     setActiveOption,
     movements,
-    completeDate,
   } = useAccount();
 
   function handleCurrencyChange(e) {
@@ -48,11 +48,6 @@ function AppLayout() {
   const handleOptionClick = (option) => {
     setActiveOption(option);
   };
-
-  function keyGenerator() {
-    return Math.random().toString(36).padEnd(2, 9);
-  }
-  const uniqueKey = keyGenerator();
 
   return (
     <>
@@ -186,67 +181,15 @@ function AppLayout() {
               </h3>
 
               <div className="grid grid-cols-1 gap-2">
-                {movements.map((operation) => {
+                {movements.map((movement, index) => {
                   return (
-                    <div
-                      className="w-full h-[4rem] bg-[#f2f2f2] rounded-md py-2 px-6 flex items-center justify-between"
-                      key={uniqueKey}
-                    >
-                      <div className="flex">
-                        <FontAwesomeIcon
-                          icon={faMoneyBillTransfer}
-                          color="green"
-                          size="xl"
-                        />
-                        <p className="text-gray-900 font-semibold ml-2">
-                          {movements["withdraw"] ? "Withdraw" : ""}
-                        </p>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <p className="text-gray-900 font-bold ">
-                          - {operation.typeOfOperation}
-                        </p>
-
-                        <p className="text-gray-900 text-xs font-light">
-                          {completeDate}
-                        </p>
-                      </div>
-                    </div>
+                    <Movement
+                      movement={movement}
+                      key={index}
+                      typeOfOperation={typeOfOperation}
+                    />
                   );
                 })}
-                {/* <div className="w-full h-[4rem] bg-[#f2f2f2] rounded-md py-2 px-6 flex items-center justify-between">
-                  <div className="flex">
-                    <FontAwesomeIcon
-                      icon={faMoneyCheck}
-                      color="green"
-                      size="xl"
-                    />
-                    <p className="text-gray-900 font-semibold ml-2">Deposit</p>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <p className="text-green-600 font-bold ">40,5</p>
-                    <p className="text-gray-900 text-xs font-light">
-                      23/05/2000
-                    </p>
-                  </div>
-                </div>
-
-                <div className="w-full h-[4rem] bg-[#f2f2f2] rounded-md py-2 px-6 flex items-center justify-between">
-                  <div className="flex">
-                    <FontAwesomeIcon
-                      icon={faRightLeft}
-                      color="green"
-                      size="xl"
-                    />
-                    <p className="text-gray-900 font-semibold ml-2">Transfer</p>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <p className="text-red-600 font-bold ">- 40,5</p>
-                    <p className="text-gray-900 text-xs font-light">
-                      23/05/2000
-                    </p>
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>

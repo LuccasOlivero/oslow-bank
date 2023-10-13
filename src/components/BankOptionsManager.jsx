@@ -29,7 +29,9 @@ function BankOptionsManager({ type }) {
     e.preventDefault();
 
     if (type === "deposit") {
-      if (inputAmount > 0) depositAccount(inputAmount);
+      if (inputAmount > 0) {
+        depositAccount(inputAmount, typeOfOperation);
+      }
     }
 
     if (type === "withdraw") {

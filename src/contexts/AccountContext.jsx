@@ -14,13 +14,6 @@ const initialState = {
     USD: 200,
     EUR: 100,
   },
-  movements: [
-    {
-      withdraw: 30,
-      deposit: 60,
-      transfer: 90,
-    },
-  ],
   loans: null,
 };
 
@@ -60,10 +53,7 @@ function reducer(state, action) {
 }
 
 function AccountProvider({ children }) {
-  const [{ userBalance, movements }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [{ userBalance }, dispatch] = useReducer(reducer, initialState);
   // active menu options of type operations
   const [optionsActive, setOptionsActive] = useState(false);
   const [typeOfOperation, setTypeOfOperation] = useState("");
@@ -75,6 +65,21 @@ function AccountProvider({ children }) {
   // setting active operation
   const [activeOption, setActiveOption] = useState(null);
 
+  // history of movements
+  const [movements, setMovements] = useState([
+    {
+      type: "withdraw",
+      balance: 30,
+    },
+    {
+      type: "deposit",
+      balance: 50,
+    },
+    {
+      type: "transfer",
+      balance: 100,
+    },
+  ]);
   // curr date of each movement
   const [completeDate, setCompleteDate] = useState("");
   useEffect(() => {
@@ -88,9 +93,11 @@ function AccountProvider({ children }) {
     setCompleteDate(date);
   }, [movements]);
 
-  function depositAccount(input) {
+  function depositAccount(input, type) {
     if (input < 1) return;
+    console.log(type);
     dispatch({ type: "deposit", payload: input });
+    setMovements([{ type: type, balance: input }, ...movements]);
   }
 
   function operationWithdraw(input) {
@@ -101,6 +108,7 @@ function AccountProvider({ children }) {
   function requestLoan(input) {
     if (input < 10000) dispatch({ type: "loan", payload: input });
   }
+
   return (
     <AccountContext.Provider
       value={{
@@ -120,6 +128,7 @@ function AccountProvider({ children }) {
         setActiveOption,
         requestLoan,
         movements,
+        setMovements,
         completeDate,
       }}
     >
@@ -136,7 +145,7 @@ function useAccount() {
 }
 
 AccountProvider.propTypes = {
-  children: PropTypes.string.isRequired, // Puedes reemplazar 'string' con el tipo de dato adecuado
+  children: PropTypes.object.isRequired, // Puedes reemplazar 'string' con el tipo de dato adecuado
 };
 
 export { useAccount, AccountProvider };
