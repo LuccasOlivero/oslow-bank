@@ -4,7 +4,7 @@ import { faTurnDown } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-function BankOptionsManager({ type }) {
+function BankOptionsManager({ type, handleClickOperation }) {
   // Deconstructing values from context with custom hook
   const {
     optionsActive,
@@ -15,6 +15,8 @@ function BankOptionsManager({ type }) {
     typeOfOperation,
     setActiveOption,
     requestLoan,
+    loans,
+    payLoan,
   } = useAccount();
   const [error, setError] = useState(false);
   const [inputAmount, setInputAmount] = useState(0);
@@ -35,17 +37,27 @@ function BankOptionsManager({ type }) {
     }
 
     if (type === "withdraw") {
-      if (inputAmount < userBalance.USD) operationWithdraw(inputAmount);
+      if (inputAmount < userBalance.USD) {
+        operationWithdraw(inputAmount, typeOfOperation);
+      }
     }
 
     if (type === "loan") {
-      if (inputAmount < 10000) requestLoan(inputAmount);
+      if (inputAmount < 10000) {
+        requestLoan(inputAmount, typeOfOperation);
+      }
     }
 
+    // if (type === "payments") {
+    // }
     // restoring some default values
     setInputAmount(0);
     setOptionsActive(false);
     setActiveOption(null);
+  }
+
+  function handlePayLoan() {
+    payLoan();
   }
 
   // handling erros into a BankOptions
@@ -115,16 +127,36 @@ function BankOptionsManager({ type }) {
                   {typeOfOperation === "loan" ? "Loan amount" : ""}
                   {typeOfOperation === "deposit" ? "Amount" : ""}
                   {typeOfOperation === "withdraw" ? "Withdraw" : ""}
-                  {/* <span className="absolute right-[3.2rem] bottom-0">
-                    <FontAwesomeIcon icon={faTurnDown} size="xs" />
-                  </span> */}
+                  {typeOfOperation === "payments"
+                    ? loans === null
+                      ? "You have no outstanding loans"
+                      : "You have pay"
+                    : ""}
                 </p>
-                <input
-                  type="number"
-                  className=" h-[2.5rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none"
-                  onChange={handleDeposit}
-                  placeholder="Ex: 100"
-                />
+
+                {typeOfOperation === "payments" ? (
+                  <div className="flex justify-center">
+                    {loans === null ? (
+                      <button
+                        className=" h-[2.5rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none font-semibold flex justify-center items-center"
+                        onClick={() => handleClickOperation("loan")}
+                      >
+                        Apply for a loan
+                      </button>
+                    ) : (
+                      <span className=" h-[2.5rem] w-[13rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none font-bold flex justify-center items-center">
+                        $ {loans} USD
+                      </span>
+                    )}
+                  </div>
+                ) : (
+                  <input
+                    type="number"
+                    className=" h-[2.5rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none"
+                    onChange={handleDeposit}
+                    placeholder="Ex: 100"
+                  />
+                )}
               </div>
 
               {type === "transfer" ? (
@@ -146,7 +178,7 @@ function BankOptionsManager({ type }) {
                 </div>
               ) : null}
 
-              <div className="flex flex-col justify-between h-full">
+              {/* <div className="flex flex-col justify-between h-full">
                 <p className="relative font-semibold text-4xl mr-4 text-gray-900 pb-3">
                   Currency
                   <span className="absolute right-[-1.8rem] bottom-0">
@@ -161,12 +193,21 @@ function BankOptionsManager({ type }) {
                   <option value="USD">USD</option>
                   <option value="EUR">EUR</option>
                 </select>
-              </div>
+              </div> */}
 
               <div className="flex flex-col justify-end h-full">
-                <button className="w-[7rem] h-[2.5rem] bg-green-600 rounded-2xl text-white flex items-center justify-center text-base font-bold shadow-xl hover:bg-green-700 hover:shadow-2xl">
-                  Send
-                </button>
+                {typeOfOperation === "payments" ? (
+                  <button
+                    className="w-[7rem] h-[2.5rem] bg-green-600 rounded-2xl text-white flex items-center justify-center text-base font-bold shadow-xl hover:bg-green-700 hover:shadow-2xl"
+                    onClick={handlePayLoan}
+                  >
+                    Pay
+                  </button>
+                ) : (
+                  <button className="w-[7rem] h-[2.5rem] bg-green-600 rounded-2xl text-white flex items-center justify-center text-base font-bold shadow-xl hover:bg-green-700 hover:shadow-2xl">
+                    Send
+                  </button>
+                )}
               </div>
             </form>
           </>
@@ -179,6 +220,7 @@ function BankOptionsManager({ type }) {
 // config eslit to avoid some props errors
 BankOptionsManager.propTypes = {
   type: PropTypes.string.isRequired,
+  handleClickOperation: PropTypes.string.isRequired,
 };
 
 export default BankOptionsManager;

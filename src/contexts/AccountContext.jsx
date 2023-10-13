@@ -47,13 +47,22 @@ function reducer(state, action) {
               : state.userBalance.USD,
         },
       };
+    // case "payLoan":
+    //   return {
+    //     ...state,
+    //     loans: 3333,
+    //     // userBalance: {
+    //     //   ...state.userBalance,
+    //     //   USD: state.userBalance.USD - state.loans,
+    //     // },
+    //   };
     default:
       "Unknow action";
   }
 }
 
 function AccountProvider({ children }) {
-  const [{ userBalance }, dispatch] = useReducer(reducer, initialState);
+  const [{ userBalance, loans }, dispatch] = useReducer(reducer, initialState);
   // active menu options of type operations
   const [optionsActive, setOptionsActive] = useState(false);
   const [typeOfOperation, setTypeOfOperation] = useState("");
@@ -100,13 +109,22 @@ function AccountProvider({ children }) {
     setMovements([{ type: type, balance: input }, ...movements]);
   }
 
-  function operationWithdraw(input) {
+  function operationWithdraw(input, type) {
     if (input > userBalance) return;
     dispatch({ type: "withdraw", payload: input });
+    setMovements([{ type: type, balance: input }, ...movements]);
   }
 
-  function requestLoan(input) {
-    if (input < 10000) dispatch({ type: "loan", payload: input });
+  function requestLoan(input, type) {
+    if (input < 10000) {
+      dispatch({ type: "loan", payload: input });
+      setMovements([{ type: type, balance: input }, ...movements]);
+    }
+  }
+
+  function payLoan() {
+    // dispatch({ type: payLoan, payload: null });
+    console.log("pagado rey");
   }
 
   return (
@@ -127,9 +145,11 @@ function AccountProvider({ children }) {
         activeOption,
         setActiveOption,
         requestLoan,
+        loans,
         movements,
         setMovements,
         completeDate,
+        payLoan,
       }}
     >
       {children}

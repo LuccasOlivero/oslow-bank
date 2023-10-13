@@ -56,7 +56,10 @@ function AppLayout() {
 
         <section className="flex justify-center relative h-full w-full bg-[#f2f2f2] ">
           <div className="grid grid-cols-3 gap-6 max-w-[1300px] my-[3rem] w-full">
-            <BankOptionsManager type={typeOfOperation} />
+            <BankOptionsManager
+              type={typeOfOperation}
+              handleClickOperation={handleClickOperation}
+            />
             <div className="bg-gray-900 w-full h-full relative rounded-[3rem] text-white py-8 px-12 flex flex-col justify-between items-center shadow-2xl row-span-2">
               <h3 className="relative text-4xl font-bold">
                 👋 Welcome
@@ -100,7 +103,7 @@ function AppLayout() {
                   />
                 </span>
 
-                <span>
+                <span onClick={() => handleClickOperation("payments")}>
                   <OptionBank
                     type={"Payments"}
                     icon={faMoneyBillTransfer}
