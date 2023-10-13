@@ -80,10 +80,7 @@ function AppLayout() {
             </div>
 
             <div className="bg-green-600 w-full h-full relative rounded-[3rem] text-white py-8 px-12 flex flex-col justify-between shadow-2xl col-span-2 row-span-2 mb-3 items-start">
-              <h3 className="text-4xl font-bold">
-                How can we assist you?
-                {/* <span className="absolute w-[18rem] h-[3px] bg-gray-900 left-[2.1rem] top-[4.5rem]"></span> */}
-              </h3>
+              <h3 className="text-4xl font-bold">How can we assist you?</h3>
               <div className="flex flex-wrap gap-6 justify-between text-center text-4xl">
                 <span onClick={() => handleClickOperation("deposit")}>
                   <OptionBank
@@ -112,7 +109,7 @@ function AppLayout() {
                   />
                 </span>
 
-                <span>
+                <span onClick={() => handleClickOperation("invest")}>
                   <OptionBank
                     type={"Invest"}
                     icon={faSackDollar}
@@ -121,12 +118,12 @@ function AppLayout() {
                   />
                 </span>
 
-                <span>
+                <span onClick={() => handleClickOperation("insurance")}>
                   <OptionBank
-                    type={"Transfer"}
-                    icon={faChartSimple}
-                    isActive={activeOption === 5}
-                    onClick={() => handleOptionClick(5)}
+                    type={"Insurance"}
+                    icon={faUnlockKeyhole}
+                    isActive={activeOption === 8}
+                    onClick={() => handleOptionClick(8)}
                   />
                 </span>
 
@@ -139,7 +136,7 @@ function AppLayout() {
                   />
                 </span>
 
-                <span>
+                <span onClick={() => handleClickOperation("qr")}>
                   <OptionBank
                     type={"Qr"}
                     icon={faQrcode}
@@ -148,16 +145,16 @@ function AppLayout() {
                   />
                 </span>
 
-                <span>
+                <span onClick={() => handleClickOperation("transfer")}>
                   <OptionBank
-                    type={"Insurance"}
-                    icon={faUnlockKeyhole}
-                    isActive={activeOption === 8}
-                    onClick={() => handleOptionClick(8)}
+                    type={"Transfer"}
+                    icon={faChartSimple}
+                    isActive={activeOption === 5}
+                    onClick={() => handleOptionClick(5)}
                   />
                 </span>
 
-                <span>
+                <span onClick={() => handleClickOperation("help")}>
                   <OptionBank
                     type={"Help"}
                     icon={faCircleInfo}
@@ -166,7 +163,7 @@ function AppLayout() {
                   />
                 </span>
 
-                <span>
+                <span onClick={() => handleClickOperation("more")}>
                   <OptionBank
                     type={"More"}
                     icon={faCircleQuestion}

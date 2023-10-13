@@ -57,6 +57,14 @@ function reducer(state, action) {
           USD: state.userBalance.USD - state.loans,
         },
       };
+    case "transfer":
+      return {
+        ...state,
+        userBalance: {
+          ...state.userBalance,
+          USD: state.userBalance.USD - action.payload,
+        },
+      };
     default:
       "Unknow action";
   }
@@ -104,9 +112,9 @@ function AccountProvider({ children }) {
     setCompleteDate(date);
   }, [movements]);
 
+  // diferent types of operations from user
   function depositAccount(input, type) {
     if (input < 1) return;
-    console.log(type);
     dispatch({ type: "deposit", payload: input });
     setMovements([{ type: type, balance: input }, ...movements]);
   }
@@ -124,8 +132,14 @@ function AccountProvider({ children }) {
     }
   }
 
-  function payLoan() {
+  function payLoan(type) {
     dispatch({ type: "payLoan", payload: null });
+    setMovements([{ type: type, balance: loans }, ...movements]);
+  }
+
+  function transfer(input, type) {
+    dispatch({ type: "transfer", payload: input });
+    setMovements([{ type: type, balance: input }, ...movements]);
   }
 
   return (
@@ -151,6 +165,7 @@ function AccountProvider({ children }) {
         setMovements,
         completeDate,
         payLoan,
+        transfer,
       }}
     >
       {children}
