@@ -47,15 +47,16 @@ function reducer(state, action) {
               : state.userBalance.USD,
         },
       };
-    // case "payLoan":
-    //   return {
-    //     ...state,
-    //     loans: 3333,
-    //     // userBalance: {
-    //     //   ...state.userBalance,
-    //     //   USD: state.userBalance.USD - state.loans,
-    //     // },
-    //   };
+    case "payLoan":
+      return {
+        ...state,
+        loans:
+          state.loans < state.userBalance.USD ? action.payload : state.loans,
+        userBalance: {
+          ...state.userBalance,
+          USD: state.userBalance.USD - state.loans,
+        },
+      };
     default:
       "Unknow action";
   }
@@ -91,6 +92,7 @@ function AccountProvider({ children }) {
   ]);
   // curr date of each movement
   const [completeDate, setCompleteDate] = useState("");
+
   useEffect(() => {
     const currDate = new Date();
 
@@ -123,8 +125,7 @@ function AccountProvider({ children }) {
   }
 
   function payLoan() {
-    // dispatch({ type: payLoan, payload: null });
-    console.log("pagado rey");
+    dispatch({ type: "payLoan", payload: null });
   }
 
   return (
