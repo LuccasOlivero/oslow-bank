@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import { AccountProvider } from "./contexts/AccountContext";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               }
             />
             <Route path="/login" element={<Login />}></Route>
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

@@ -2,8 +2,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, NavLink } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import SideBar from "./Sidebar";
 
-function NavBar({ session = "Login" }) {
+function NavBar({ session = "Login", setActive, active }) {
   const { logout } = useAuth();
 
   function handleClick() {
@@ -12,27 +13,32 @@ function NavBar({ session = "Login" }) {
 
   const location = useLocation();
   return (
-    <nav className="flex justify-center w-full h-[4rem] px-12">
-      <div className="flex justify-between items-center w-full h-full  max-w-[1300px]">
-        <FontAwesomeIcon icon={faBars} size="xl" />
+    <>
+      {active && <SideBar setActive={setActive} active={active} />}
+      <nav className="flex justify-center w-full h-[4rem] px-12 z-[500]">
+        <div className="flex justify-between items-center w-full h-full  max-w-[1300px]">
+          <span onClick={() => setActive("translate-x-0")}>
+            <FontAwesomeIcon icon={faBars} size="2x" />
+          </span>
 
-        <NavLink className="h-[3rem]" to="/">
-          <img
-            src="./oslo.png"
-            alt="oslowIcon"
-            className="w-full text-center h-full block"
-          />
-        </NavLink>
+          <NavLink className="h-[3rem]" to="/">
+            <img
+              src="./oslo.png"
+              alt="oslowIcon"
+              className="w-full text-center h-full block"
+            />
+          </NavLink>
 
-        <NavLink
-          to={location.pathname === "/app" ? "/" : "/login"}
-          className="font-semibold text-xl"
-          onClick={handleClick}
-        >
-          {session}
-        </NavLink>
-      </div>
-    </nav>
+          <NavLink
+            to={location.pathname === "/app" ? "/" : "/login"}
+            className="font-semibold text-xl max-lg:text-sm"
+            onClick={handleClick}
+          >
+            {session}
+          </NavLink>
+        </div>
+      </nav>
+    </>
   );
 }
 

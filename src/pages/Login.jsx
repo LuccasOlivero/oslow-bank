@@ -59,8 +59,8 @@ function Login() {
         <NavBar />
 
         <div className="w-full h-screen flex justify-center items-center relative px-12">
-          <div className="relative w-full max-w-[1300px] h-[33rem] bg-white grid  grid-cols-3 justify-between items-center rounded-[3rem] top-[-3rem] shadow-2xl px-12 py-12 gap-6 max-xl:gap-3">
-            <article className="p-6 bg-gray-900 rounded-[3rem] w-full h-full flex flex-col justify-evenly shadow-2xl col-start-1 col-end-3">
+          <div className="relative w-full max-w-[1300px] h-[28rem] bg-white grid  grid-cols-3 justify-between items-center rounded-[3rem] top-[-3rem] shadow-2xl p-12 gap-6 max-xl:gap-3 max-lg:grid-cols-6 max-md:p-6 max-md:h-[25rem]">
+            <article className="p-6 bg-gray-900 rounded-[3rem] w-full h-full flex flex-col justify-evenly shadow-2xl col-start-1 col-end-3 max-lg:col-end-5 max-lg:hidden">
               <h2 className="text-4xl font-semibold text-white">
                 Welcome to <span className="text-green-600">Oslo</span>: your
                 passport to a modern financial future.
@@ -77,7 +77,7 @@ function Login() {
             </article>
 
             <form
-              className="h-full flex justify-center items-center relative col-start-3 w-full"
+              className="h-full flex justify-center items-center relative col-start-3 w-full max-lg:col-start-2 max-lg:col-end-6 max-md:col-start-1 max-md:col-end-7"
               onSubmit={handleSubmit}
             >
               <div
@@ -111,7 +111,7 @@ function Login() {
                 />
 
                 <div className="flex justify-end">
-                  <button className=" p-3 bg-gray-900 w-[13rem] h-[3rem] rounded-2xl text-white font-bold hover:bg-gray-950 transition-all ease-in duration-300 hover:shadow-2xl">
+                  <button className=" p-3 bg-gray-900 w-full h-[3rem] rounded-2xl text-white font-bold hover:bg-gray-950 transition-all ease-in duration-300 hover:shadow-2xl">
                     Login
                   </button>
                 </div>

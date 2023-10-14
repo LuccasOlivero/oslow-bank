@@ -2,7 +2,7 @@ import { useContext, createContext, useReducer, useState } from "react";
 import Error from "../components/Error";
 
 const FAKE_USER = {
-  name: "Lucas",
+  name: "Admin",
   email: "admin@admin.com",
   password: "admin",
 };

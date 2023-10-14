@@ -1,9 +1,6 @@
 import { useAccount } from "../contexts/AccountContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTurnDown,
-  faCircleArrowLeft,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircleArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
@@ -54,7 +51,7 @@ function BankOptionsManager({ type, handleClickOperation }) {
     }
 
     if (type === "withdraw") {
-      if (inputAmount > userBalance.USD)
+      if (inputAmount > userBalance.USD || inputAmount <= 0)
         return setError({
           ...error,
           status: true,
@@ -88,7 +85,7 @@ function BankOptionsManager({ type, handleClickOperation }) {
           type: "Invalid account number. Please enter a valid 9-digit account number.",
         });
 
-      if (inputAmount > userBalance.USD)
+      if (inputAmount > userBalance.USD || inputAmount <= 0)
         return setError({
           ...error,
           status: true,
@@ -126,10 +123,10 @@ function BankOptionsManager({ type, handleClickOperation }) {
 
   // if error is true, set mensaje 3 seconds then remove it
   useEffect(() => {
-    if (error === true) {
+    if (error.status === true) {
       const timeoutId = setTimeout(() => {
         setError(() => !error);
-      }, 3000);
+      }, 2500);
 
       // clean timeout when component change or unmount
       return () => clearTimeout(timeoutId);
@@ -142,12 +139,12 @@ function BankOptionsManager({ type, handleClickOperation }) {
       {error.status && (
         <div
           className={`${
-            error
+            error.status
               ? "h-[2rem] w-full col-span-3 bg-red-500 bottom-9 flex justify-center items-center text-white font-semibold uppercase rounded-2xl"
               : "h-0 w-full col-span-3"
           } duration-300`}
         >
-          {error ? error.type : null}
+          {error.status ? error.type : null}
         </div>
       )}
 
@@ -155,7 +152,7 @@ function BankOptionsManager({ type, handleClickOperation }) {
       <div
         className={` ${
           optionsActive
-            ? "w-full col-span-3 rounded-[3rem] shadow-xl py-8 px-12 z-[99] bg-white h-[13rem]"
+            ? "w-full col-span-3 rounded-[3rem] shadow-xl py-8 px-12 z-[99] bg-white h-[13rem] max-md:h-[21rem] max-md:py-3 max-md:px-8 max-md:flex max-md:flex-col max-md:justify-evenly"
             : "h-0 w-full col-span-3"
         } duration-300`}
       >
@@ -163,12 +160,12 @@ function BankOptionsManager({ type, handleClickOperation }) {
           <>
             {typeOfOperation === "qr" ? (
               <div className="h-full flex justify-center items-center relative">
-                <span className="bg-black w-full h-[3px] relative">
-                  <span className="absolute bg-black h-[2rem] w-[3px] right-0 top-[-1rem]"></span>
+                <span className="bg-black w-full h-[3px] relative max-md:hidden">
+                  <span className="absolute bg-black h-[2rem] w-[3px] right-0 top-[-1rem] max-md:hidden"></span>
                 </span>
                 <a
                   href="https://github.com/LuccasOlivero"
-                  className="w-[24rem] mx-9 h-full"
+                  className="w-[24rem] mx-9 h-full max-md:w-full"
                 >
                   <img
                     src="./qr.png"
@@ -176,8 +173,8 @@ function BankOptionsManager({ type, handleClickOperation }) {
                     className=" h-full w-full block "
                   />
                 </a>
-                <span className="bg-black w-full h-[3px] relative">
-                  <span className="absolute bg-black h-[2rem] w-[3px] left-0 top-[-1rem]"></span>
+                <span className="bg-black w-full h-[3px] relative max-md:hidden">
+                  <span className="absolute bg-black h-[2rem] w-[3px] left-0 top-[-1rem] max-md:hidden"></span>
                 </span>
               </div>
             ) : (
@@ -190,7 +187,7 @@ function BankOptionsManager({ type, handleClickOperation }) {
                     <div className="flex justify-between">
                       <h2 className="relative text-4xl items-start pb-3 first-letter:uppercase font-semibold">
                         Oops
-                        <span className="absolute w-[3rem] h-[3px] bg-green-600 left-0 top-[2.5rem]"></span>
+                        <span className="absolute w-[3rem] h-[3px] bg-green-600 left-0 top-[2.5rem] max-md:w-[2.5rem]"></span>
                       </h2>
 
                       <span
@@ -216,7 +213,7 @@ function BankOptionsManager({ type, handleClickOperation }) {
                     <div className="flex justify-between">
                       <h2 className="relative text-4xl items-start pb-3 first-letter:uppercase font-semibold">
                         {typeOfOperation}
-                        <span className="absolute w-[6rem] h-[3px] bg-green-600 left-0 top-[2.5rem]"></span>
+                        <span className="absolute w-[6rem] h-[3px] bg-green-600 left-0 top-[2.5rem] max-md:w-[3rem]"></span>
                       </h2>
 
                       <span
@@ -229,23 +226,24 @@ function BankOptionsManager({ type, handleClickOperation }) {
                         <FontAwesomeIcon icon={faCircleArrowLeft} />
                       </span>
                     </div>
+
                     <form
                       className={`${
                         optionsActive
-                          ? "flex justify-evenly relative items-end"
+                          ? "flex justify-evenly relative items-end max-md:grid max-md:w-full max-md:grid-cols-2"
                           : "relative top-0"
                       }`}
                       onSubmit={(e) => handleSubmit(e)}
                     >
-                      <div className="flex flex-col justify-between h-full">
-                        <p className="relative font-semibold text-4xl mr-4 text-gray-900 pb-3">
+                      <div className="flex flex-col justify-between h-full ">
+                        <p className="relative font-semibold text-4xl mr-4 text-gray-900 pb-3 max-md:text-2xl">
                           {/* types of operations from user */}
                           {typeOfOperation === "loan" ? "Loan amount" : ""}
                           {typeOfOperation === "deposit" ? "Amount" : ""}
                           {typeOfOperation === "withdraw" ? "Withdraw" : ""}
                           {typeOfOperation === "payments"
                             ? loans === null
-                              ? "You have no outstanding loans"
+                              ? "You're loan-free"
                               : "You have pay"
                             : ""}
                           {typeOfOperation === "transfer" ? "Amount" : ""}
@@ -255,10 +253,10 @@ function BankOptionsManager({ type, handleClickOperation }) {
                           <div className="flex justify-center">
                             {loans === null ? (
                               <button
-                                className=" h-[2.5rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none font-semibold flex justify-center items-center"
+                                className=" h-[2.5rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none font-semibold flex justify-center items-center max-md:w-full"
                                 onClick={() => handleApplyLoan()}
                               >
-                                Apply for a loan
+                                Try Loan
                               </button>
                             ) : (
                               <span className=" h-[2.5rem] w-[13rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none font-bold flex justify-center items-center">
@@ -278,28 +276,22 @@ function BankOptionsManager({ type, handleClickOperation }) {
 
                       {type === "transfer" ? (
                         <div className="flex flex-col justify-between h-full">
-                          <p className="relative font-semibold text-4xl mr-4 text-gray-900 pb-3">
-                            Acct No.
-                            <span className="absolute right-[3rem] bottom-0">
-                              <FontAwesomeIcon icon={faTurnDown} size="xs" />
-                            </span>
+                          <p className="relative font-semibold text-4xl mr-4 text-gray-900 pb-3 max-md:text-2xl">
+                            Acct.No.
                           </p>
 
                           <input
                             type="number"
                             name=""
-                            className="h-[2.5rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none"
+                            className="h-[2.5rem] outline-none bg-[#f2f2f2] shadow-xl rounded-xl px-6 appearance-none "
                             placeholder="Ex: 425426649"
                             onChange={(e) => handleInputAccNo(e)}
                           />
                         </div>
                       ) : null}
                       <div className="flex flex-col justify-between h-full">
-                        <p className="relative font-semibold text-4xl mr-4 text-gray-900 pb-3">
+                        <p className="relative font-semibold text-4xl mr-4 text-gray-900 pb-3 max-md:text-2xl">
                           Currency
-                          <span className="absolute right-[-1.8rem] bottom-0">
-                            <FontAwesomeIcon icon={faTurnDown} size="xs" />
-                          </span>
                         </p>
 
                         <select
@@ -311,16 +303,16 @@ function BankOptionsManager({ type, handleClickOperation }) {
                         </select>
                       </div>
 
-                      <div className="flex flex-col justify-end h-full">
+                      <div className="flex flex-col justify-end h-full relative ">
                         {typeOfOperation === "payments" ? (
                           <button
-                            className="w-[7rem] h-[2.5rem] bg-green-600 rounded-2xl text-white flex items-center justify-center text-base font-bold shadow-xl hover:bg-green-700 hover:shadow-2xl"
+                            className="w-[7rem] h-[2.5rem] bg-green-600 rounded-2xl text-white flex items-center justify-center text-base font-bold shadow-xl hover:bg-green-700 hover:shadow-2xl max-md:w-full max-md:mt-[1rem]"
                             onClick={handlePayLoan}
                           >
                             Pay
                           </button>
                         ) : (
-                          <button className="w-[7rem] h-[2.5rem] bg-green-600 rounded-2xl text-white flex items-center justify-center text-base font-bold shadow-xl hover:bg-green-700 hover:shadow-2xl">
+                          <button className="w-[7rem] h-[2.5rem] bg-green-600 rounded-2xl text-white flex items-center justify-center text-base font-bold shadow-xl hover:bg-green-700 hover:shadow-2xl max-md:w-full max-md:mt-[1rem]">
                             Send
                           </button>
                         )}
