@@ -34,6 +34,9 @@ function AuthProvider({ children }) {
   const [email, setEmail] = useState("admin@admin.com");
   const [password, setPassword] = useState("admin");
 
+  // loader
+  const [isLoading, setIsLoading] = useState(false);
+
   function login(email, password) {
     if (email !== FAKE_USER.email || password !== FAKE_USER.password) {
       setError(true);
@@ -60,6 +63,8 @@ function AuthProvider({ children }) {
         setEmail,
         password,
         setPassword,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}

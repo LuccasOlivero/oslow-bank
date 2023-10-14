@@ -6,6 +6,7 @@ import {
   useEffect,
 } from "react";
 import PropTypes from "prop-types";
+import { useAuth } from "./AuthContext";
 
 const AccountContext = createContext();
 
@@ -101,6 +102,8 @@ function AccountProvider({ children }) {
   // curr date of each movement
   const [completeDate, setCompleteDate] = useState("");
 
+  const { setIsLoading } = useAuth();
+
   useEffect(() => {
     const currDate = new Date();
 
@@ -115,31 +118,58 @@ function AccountProvider({ children }) {
   // diferent types of operations from user
   function depositAccount(input, type) {
     if (input < 1) return;
-    dispatch({ type: "deposit", payload: input });
-    setMovements([{ type: type, balance: input }, ...movements]);
+
+    setIsLoading(true);
+
+    setTimeout(() => {
+      dispatch({ type: "deposit", payload: input });
+      setMovements([{ type: type, balance: input }, ...movements]);
+      setIsLoading(false);
+    }, 1000);
   }
 
   function operationWithdraw(input, type) {
     if (input > userBalance) return;
-    dispatch({ type: "withdraw", payload: input });
-    setMovements([{ type: type, balance: input }, ...movements]);
+
+    setIsLoading(true);
+
+    setTimeout(() => {
+      dispatch({ type: "withdraw", payload: input });
+      setMovements([{ type: type, balance: input }, ...movements]);
+      setIsLoading(false);
+    }, 1000);
   }
 
   function requestLoan(input, type) {
-    if (input < 10000) {
+    if (input > 10000) return;
+
+    setIsLoading(true);
+
+    setTimeout(() => {
       dispatch({ type: "loan", payload: input });
       setMovements([{ type: type, balance: input }, ...movements]);
-    }
+      setIsLoading(false);
+    }, 1000);
   }
 
   function payLoan(type) {
-    dispatch({ type: "payLoan", payload: null });
-    setMovements([{ type: type, balance: loans }, ...movements]);
+    setIsLoading(true);
+
+    setTimeout(() => {
+      dispatch({ type: "payLoan", payload: null });
+      setMovements([{ type: type, balance: loans }, ...movements]);
+      setIsLoading(false);
+    }, 1000);
   }
 
   function transfer(input, type) {
-    dispatch({ type: "transfer", payload: input });
-    setMovements([{ type: type, balance: input }, ...movements]);
+    setIsLoading(true);
+
+    setTimeout(() => {
+      dispatch({ type: "transfer", payload: input });
+      setMovements([{ type: type, balance: input }, ...movements]);
+      setIsLoading(false);
+    }, 1000);
   }
 
   return (

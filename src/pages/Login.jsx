@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Error from "../components/Error";
+import Loader from "../components/Loader";
 
 function Login() {
   const location = useLocation();
@@ -16,6 +17,8 @@ function Login() {
     setEmail,
     password,
     setPassword,
+    setIsLoading,
+    isLoading,
   } = useAuth();
   const navigate = useNavigate();
 
@@ -33,7 +36,14 @@ function Login() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (email && password) login(email, password);
+    setIsLoading(true);
+
+    setTimeout(() => {
+      if (email && password) {
+        login(email, password);
+        setIsLoading(false);
+      }
+    }, 2000);
   }
 
   useEffect(() => {
@@ -45,18 +55,36 @@ function Login() {
   return (
     <>
       <section className="relative w-full h-full bg-[#f2f2f2]">
+        {isLoading && <Loader />}
         <NavBar />
 
-        <div className="w-full h-screen flex justify-center items-center relative">
-          <div className="relative w-full max-w-[1300px] h-[33rem] bg-white flex justify-center items-center rounded-[3rem] top-[-3rem] shadow-2xl">
+        <div className="w-full h-screen flex justify-center items-center relative ">
+          <div className="relative w-full max-w-[1300px] h-[33rem] bg-white flex justify-between items-center rounded-[3rem] top-[-3rem] shadow-2xl px-12 py-12 gap-6 ">
+            <article className="p-6 bg-gray-900 rounded-[3rem] w-full h-full flex flex-col justify-evenly shadow-2xl">
+              <h2 className="text-4xl font-semibold text-white">
+                Welcome to <span className="text-green-600">Oslo</span>: your
+                passport to a modern financial future.
+              </h2>
+              <p className="text-xl font-base text-white">
+                Join today for a modern banking experience like no other. With
+                secure access to your accounts, innovative financial tools, and
+                exclusive benefits,{" "}
+                <strong className="text-green-600">Oslo</strong> is your gateway
+                to a brighter financial future. Register now and start your
+                journey to financial freedom. Welcome to the future of banking
+                with <strong className="text-green-600">Oslo</strong>!
+              </p>
+            </article>
+
             <form
-              className="w-full h-screen flex justify-center items-center"
+              className="h-full flex justify-center items-center relative"
               onSubmit={handleSubmit}
             >
               <div
-                className="w-[22rem] h-[25rem] bg-green-600 shadow-2xl
-          rounded-[3rem] flex flex-col p-6 relative justify-evenly"
+                className="w-[22rem] h-full bg-green-600 shadow-2xl
+             rounded-[3rem] flex flex-col p-6 relative justify-evenly"
               >
+                {error && <Error />}
                 <p className="text-white relative text-3xl font-bold">
                   Email address
                   <span className="absolute w-[8rem] h-[3px] bg-gray-900 left-[0] top-[2.2rem]"></span>
@@ -81,8 +109,6 @@ function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                 />
-
-                {error && <Error />}
 
                 <div className="flex justify-end">
                   <button className=" p-3 bg-gray-900 w-[13rem] h-[3rem] rounded-2xl text-white font-bold hover:bg-gray-950 transition-all ease-in duration-300 hover:shadow-2xl">

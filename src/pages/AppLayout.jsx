@@ -17,12 +17,11 @@ import OptionBank from "../components/OptionBank";
 import { useAccount } from "../contexts/AccountContext";
 import BankOptionsManager from "../components/BankOptionsManager";
 import { useAuth } from "../contexts/AuthContext";
-// import Movements from "../components/Movements";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Loader from "../components/Loader";
 import Movement from "../components/Movement";
 
 function AppLayout() {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const {
     setOptionsActive,
     userBalance,
@@ -52,6 +51,7 @@ function AppLayout() {
   return (
     <>
       <main className="h-full w-full bg-[#f2f2f2]">
+        {isLoading && <Loader />}
         <NavBar session={"Logout"} />
 
         <section className="flex justify-center relative h-full w-full bg-[#f2f2f2] ">
