@@ -7,7 +7,7 @@ function PageNotFound() {
         <div className="max-xl:px-10 max-sm:px-5">
           <h2
             className="text-white text-[13rem] font-extrabold 
-          max-sm:text-[9rem]"
+          max-sm:text-[9rem] test"
           >
             404
           </h2>
