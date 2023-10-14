@@ -22,7 +22,7 @@ function BankOptionsManager({ type, handleClickOperation }) {
     payLoan,
     transfer,
   } = useAccount();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({ status: false, type: "" });
   const [inputAmount, setInputAmount] = useState(0);
   const [accNo, setAccNo] = useState([]);
 
@@ -36,27 +36,65 @@ function BankOptionsManager({ type, handleClickOperation }) {
     e.preventDefault();
 
     if (type === "deposit") {
-      if (inputAmount > 0) {
-        depositAccount(inputAmount, typeOfOperation);
-      }
+      if (inputAmount < 0)
+        return setError({
+          ...error,
+          status: true,
+          type: "Please enter a number greater than 0.",
+        });
+
+      if (inputAmount > 100000)
+        return setError({
+          ...error,
+          status: true,
+          type: "The maximum deposit amount is 100,000. Please try a lower amount.",
+        });
+
+      depositAccount(inputAmount, typeOfOperation);
     }
 
     if (type === "withdraw") {
-      if (inputAmount < userBalance.USD) {
-        operationWithdraw(inputAmount, typeOfOperation);
-      }
+      if (inputAmount > userBalance.USD)
+        return setError({
+          ...error,
+          status: true,
+          type: "Insufficient funds. You do not have enough balance to perform this operation.",
+        });
+      operationWithdraw(inputAmount, typeOfOperation);
     }
 
     if (type === "loan") {
-      if (inputAmount < 10000) {
-        requestLoan(inputAmount, typeOfOperation);
-      }
+      if (inputAmount > 10000)
+        return setError({
+          ...error,
+          status: true,
+          type: "The maximum allowable amount for this operation is 10,000. Please try a lower amount.",
+        });
+
+      if (inputAmount < 100)
+        return setError({
+          ...error,
+          status: true,
+          type: "The minimum allowable amount for this operation is 100. Please enter a higher amount.",
+        });
+      requestLoan(inputAmount, typeOfOperation);
     }
 
     if (type === "transfer") {
-      if (accNo.length > 9) {
-        transfer(inputAmount, typeOfOperation);
-      }
+      if (accNo.length < 9)
+        return setError({
+          ...error,
+          status: true,
+          type: "Invalid account number. Please enter a valid 9-digit account number.",
+        });
+
+      if (inputAmount > userBalance.USD)
+        return setError({
+          ...error,
+          status: true,
+          type: "Insufficient funds. You do not have enough balance to perform this operation.",
+        });
+      transfer(inputAmount, typeOfOperation);
     }
 
     // restoring some default values
@@ -72,6 +110,12 @@ function BankOptionsManager({ type, handleClickOperation }) {
   }
 
   function handlePayLoan() {
+    if (loans === null)
+      return setError({
+        ...error,
+        status: true,
+        type: "You do not have an active loan at the moment.",
+      });
     payLoan(typeOfOperation);
   }
 
@@ -103,7 +147,7 @@ function BankOptionsManager({ type, handleClickOperation }) {
             : "h-0 w-full col-span-3"
         } duration-300`}
       >
-        {error ? "All fields are required." : null}
+        {error ? error.type : null}
       </div>
 
       {/* Form to an operation  */}
@@ -121,11 +165,16 @@ function BankOptionsManager({ type, handleClickOperation }) {
                 <span className="bg-black w-full h-[3px] relative">
                   <span className="absolute bg-black h-[2rem] w-[3px] right-0 top-[-1rem]"></span>
                 </span>
-                <img
-                  src="./qr.png"
-                  alt=""
-                  className="w-[10rem] h-full block mx-9"
-                />
+                <a
+                  href="https://github.com/LuccasOlivero"
+                  className="w-[24rem] mx-9 h-full"
+                >
+                  <img
+                    src="./qr.png"
+                    alt="qr.png"
+                    className=" h-full w-full block "
+                  />
+                </a>
                 <span className="bg-black w-full h-[3px] relative">
                   <span className="absolute bg-black h-[2rem] w-[3px] left-0 top-[-1rem]"></span>
                 </span>

@@ -54,23 +54,21 @@ function AppLayout() {
         {isLoading && <Loader />}
         <NavBar session={"Logout"} />
 
-        <section className="flex justify-center relative h-full w-full bg-[#f2f2f2] ">
+        <section className="flex justify-center relative h-full w-full bg-[#f2f2f2] px-6">
           <div className="grid grid-cols-3 gap-6 max-w-[1300px] my-[3rem] w-full">
             <BankOptionsManager
               type={typeOfOperation}
               handleClickOperation={handleClickOperation}
             />
-            <div className="bg-gray-900 w-full h-full relative rounded-[3rem] text-white py-8 px-12 flex flex-col justify-between items-center shadow-2xl row-span-2">
-              <h3 className="relative text-4xl font-bold">
-                👋 Welcome
-                <br />
-                <span className="text-green-600">{user.name}</span>
+            <div className="bg-gray-900 w-full h-full relative rounded-[3rem] text-white py-8 px-12 flex flex-col justify-between items-center shadow-2xl row-span-2 max-xl:py-6 max-lg:col-span-3 ">
+              <h3 className="relative text-4xl font-bold max-xl:text-3xl">
+                👋 Welcome <span className="text-green-600">{user.name}</span>
               </h3>
-              <p className="text-6xl ">
+              <p className="text-6xl max-xl:text-5xl max-sm:text-4xl">
                 {userBalance[selectedCurrency]},00 <br /> {selectedCurrency}
               </p>
               <select
-                className="text-base text-white uppercase w-full rounded-xl bg-green-600 px-6 outline-none h-[2.5rem] text-center"
+                className="text-base text-white uppercase w-full rounded-xl bg-green-600 px-6 outline-none h-[2.5rem] text-center max-w-[15rem] max-lg:mt-3"
                 value={selectedCurrency}
                 onChange={handleCurrencyChange}
               >
@@ -79,9 +77,9 @@ function AppLayout() {
               </select>
             </div>
 
-            <div className="bg-green-600 w-full h-full relative rounded-[3rem] text-white py-8 px-12 flex flex-col justify-between shadow-2xl col-span-2 row-span-2 mb-3 items-start">
+            <div className="bg-green-600 w-full h-full relative rounded-[3rem] text-white py-8 px-12 flex flex-col justify-between shadow-2xl col-span-2 row-span-2 mb-3 items-start max-xl:py-3 max-lg:col-span-3 ">
               <h3 className="text-4xl font-bold">How can we assist you?</h3>
-              <div className="flex flex-wrap gap-6 justify-between text-center text-4xl">
+              <div className="grid grid-cols-5 gap-6 text-center text-4xl max-xl:grid-cols-4 max-xl:m-auto max-xl:pt-2 max-md:grid-cols-3 max-sm:grid-cols-2">
                 <span onClick={() => handleClickOperation("deposit")}>
                   <OptionBank
                     type={"Deposit"}
@@ -109,7 +107,10 @@ function AppLayout() {
                   />
                 </span>
 
-                <span onClick={() => handleClickOperation("invest")}>
+                <span
+                  onClick={() => handleClickOperation("invest")}
+                  className="max-sm:hidden"
+                >
                   <OptionBank
                     type={"Invest"}
                     icon={faSackDollar}
@@ -118,7 +119,10 @@ function AppLayout() {
                   />
                 </span>
 
-                <span onClick={() => handleClickOperation("insurance")}>
+                <span
+                  onClick={() => handleClickOperation("insurance")}
+                  className="max-sm:hidden"
+                >
                   <OptionBank
                     type={"Insurance"}
                     icon={faUnlockKeyhole}
@@ -154,7 +158,10 @@ function AppLayout() {
                   />
                 </span>
 
-                <span onClick={() => handleClickOperation("help")}>
+                <span
+                  onClick={() => handleClickOperation("help")}
+                  className="max-xl:hidden"
+                >
                   <OptionBank
                     type={"Help"}
                     icon={faCircleInfo}
@@ -163,7 +170,10 @@ function AppLayout() {
                   />
                 </span>
 
-                <span onClick={() => handleClickOperation("more")}>
+                <span
+                  onClick={() => handleClickOperation("more")}
+                  className="max-xl:hidden"
+                >
                   <OptionBank
                     type={"More"}
                     icon={faCircleQuestion}
@@ -175,7 +185,7 @@ function AppLayout() {
             </div>
 
             <div className="bg-white w-full relative rounded-[3rem] py-8 px-12 flex flex-col shadow-2xl col-span-3 ">
-              <h3 className="text-gray-900 text-4xl font-bold mb-6 relative">
+              <h3 className="text-gray-900 text-4xl font-bold mb-6 relative max-sm:text-3xl">
                 Movements
                 <span className="absolute w-[9rem] h-[3px] bg-green-600 left-0 top-[2.5rem]"></span>
               </h3>
