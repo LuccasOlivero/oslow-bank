@@ -18,12 +18,12 @@ function Main() {
         <NavBar />
 
         <div className="w-full flex flex-col h-full justify-center items-center">
-          <div className="relative max-w-[1300px] flex flex-col justify-evenly h-full w-full">
-            <div className="flex items-center flex-col">
-              <h1 className="text-7xl font-bold">
+          <div className="relative max-w-[1300px] flex flex-col justify-evenly h-full w-full px-12">
+            <div className="flex items-center flex-col max-lg:pt-[6rem]">
+              <h1 className="text-7xl font-bold max-lg:text-5xl">
                 Simplified banking for an enhanced experience.
               </h1>
-              <p className="text-xl font-light pt-3 pb-9">
+              <p className="text-xl font-light pt-3 pb-9 max-lg:text-lg">
                 We simplify banking for you. With cutting-edge technology,
                 managing your finances has never been easier or more rewarding.
               </p>
@@ -39,7 +39,7 @@ function Main() {
               </NavLink>
             </div>
 
-            <div className="flex justify-center items-center flex-col">
+            <div className="flex justify-center items-center flex-col z-40">
               <p className="relative text-xl font-extralight ">
                 Recommended by <strong>+150k </strong> people
               </p>
@@ -51,28 +51,28 @@ function Main() {
         </div>
       </main>
 
-      <section className="flex justify-center relative h-full w-full bg-[#f2f2f2]">
-        <div className="flex justify-between gap-6 items-center max-w-[1300px] my-[3rem] w-full ">
-          <div className="bg-gray-900 w-[30rem] h-[22.5rem] relative rounded-[3rem] text-[#f2f2f2] text-4xl p-8 flex flex-col justify-between items-center shadow-2xl">
-            <h3 className="text-3xl font-bold">
-              Manage your income and grow your savings.
+      <section className="grid justify-center relative h-full bg-[#f2f2f2] px-12">
+        <div className="gap-6 items-center max-w-[1300px] my-[3rem] w-full grid grid-cols-3 max-lg:grid-cols-2 max-lg:grid-rows-1 max-lg:pt-[8rem]">
+          <div className="bg-gray-900 w-full h-[22.5rem] relative rounded-[3rem] text-[#f2f2f2] text-4xl p-8 flex flex-col justify-between items-center shadow-2xl col-start-1 col-end-2 max-lg:row-span-1 max-lg:col-span-2">
+            <h3 className="text-3xl font-bold  max-lg:text-2xl">
+              Income management, savings growth
             </h3>
-            <p className="text-base">
-              No matter how much money you have in your pocket or on your phone,
-              with Oslo, you have what you need to grow your income.
+            <p className="text-base max-xl:text-sm">
+              Empowering Your Financial Journey, Unleashing Earnings Potential
+              from Any Pocket or Phone, Anytime.
             </p>
             <span className="text-base h-[2.5rem] w-[10rem] bg-green-600 rounded-3xl flex items-center justify-center font-bold hover:bg-green-700 transition-all ease-in duration-200">
               Download app
             </span>
           </div>
 
-          <div className="bg-green-600 w-[43rem] h-[22.5rem] relative rounded-[3rem] text-[#f2f2f2] text-4xl p-8 flex flex-col justify-between shadow-2xl">
-            <h3 className="text-3xl font-bold">
+          <div className="bg-green-600 w-full h-full relative rounded-[3rem] text-[#f2f2f2] text-4xl p-8 flex flex-col justify-between items-center shadow-2xl col-start-2 col-end-4 max-lg:row-start-2 max-lg:col-span-2">
+            <h3 className="text-3xl font-bold max-md:mb-4  max-lg:text-2xl">
               Furthermore, you can access all of these products.
             </h3>
-            <div className="flex justify-center gap-6 items-center">
+            <div className="grid grid-cols-4 gap-3 w-full justify-items-center max-md:grid-cols-2 max-md:grid-rows-2">
               <Card icon={faDollarSign} title={"Recharges"} />
-              <Card icon={faCreditCard} title={"Oslo Account"} />
+              <Card icon={faCreditCard} title={"Account"} />
               <Card icon={faChartSimple} title={"Fixed-Term"} />
               <Card icon={faSackDollar} title={"Loans"} />
             </div>

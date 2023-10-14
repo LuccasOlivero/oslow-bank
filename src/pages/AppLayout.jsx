@@ -5,8 +5,6 @@ import {
   faChartSimple,
   faSackDollar,
   faMoneyBillTransfer,
-  // faMoneyCheck,
-  // faRightLeft,
   faLandmark,
   faQrcode,
   faUnlockKeyhole,

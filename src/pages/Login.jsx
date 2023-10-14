@@ -58,9 +58,9 @@ function Login() {
         {isLoading && <Loader />}
         <NavBar />
 
-        <div className="w-full h-screen flex justify-center items-center relative ">
-          <div className="relative w-full max-w-[1300px] h-[33rem] bg-white flex justify-between items-center rounded-[3rem] top-[-3rem] shadow-2xl px-12 py-12 gap-6 ">
-            <article className="p-6 bg-gray-900 rounded-[3rem] w-full h-full flex flex-col justify-evenly shadow-2xl">
+        <div className="w-full h-screen flex justify-center items-center relative px-12">
+          <div className="relative w-full max-w-[1300px] h-[33rem] bg-white grid  grid-cols-3 justify-between items-center rounded-[3rem] top-[-3rem] shadow-2xl px-12 py-12 gap-6 max-xl:gap-3">
+            <article className="p-6 bg-gray-900 rounded-[3rem] w-full h-full flex flex-col justify-evenly shadow-2xl col-start-1 col-end-3">
               <h2 className="text-4xl font-semibold text-white">
                 Welcome to <span className="text-green-600">Oslo</span>: your
                 passport to a modern financial future.
@@ -77,7 +77,7 @@ function Login() {
             </article>
 
             <form
-              className="h-full flex justify-center items-center relative"
+              className="h-full flex justify-center items-center relative col-start-3 w-full"
               onSubmit={handleSubmit}
             >
               <div

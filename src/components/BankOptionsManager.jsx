@@ -124,15 +124,14 @@ function BankOptionsManager({ type, handleClickOperation }) {
     setAccNo(() => [...accNo, accountNumberFromUser]);
   }
 
-  // handling erros into a BankOptions
+  // if error is true, set mensaje 3 seconds then remove it
   useEffect(() => {
-    if (error) {
-      // Si error está en true, espera 3 segundos y luego cambia a false
+    if (error === true) {
       const timeoutId = setTimeout(() => {
-        setError(false);
-      }, 3000); // 3000 milisegundos = 3 segundos
+        setError(() => !error);
+      }, 3000);
 
-      // Limpia el timeout cuando el componente se desmonta o cuando error cambia
+      // clean timeout when component change or unmount
       return () => clearTimeout(timeoutId);
     }
   }, [error]);
@@ -140,15 +139,17 @@ function BankOptionsManager({ type, handleClickOperation }) {
   return (
     <>
       {/* error mensaje */}
-      <div
-        className={`${
-          error
-            ? "h-[2rem] w-full col-span-3 bg-red-500 bottom-9 flex justify-center items-center text-white font-semibold uppercase rounded-2xl"
-            : "h-0 w-full col-span-3"
-        } duration-300`}
-      >
-        {error ? error.type : null}
-      </div>
+      {error.status && (
+        <div
+          className={`${
+            error
+              ? "h-[2rem] w-full col-span-3 bg-red-500 bottom-9 flex justify-center items-center text-white font-semibold uppercase rounded-2xl"
+              : "h-0 w-full col-span-3"
+          } duration-300`}
+        >
+          {error ? error.type : null}
+        </div>
+      )}
 
       {/* Form to an operation  */}
       <div

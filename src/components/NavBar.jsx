@@ -12,7 +12,7 @@ function NavBar({ session = "Login" }) {
 
   const location = useLocation();
   return (
-    <nav className="flex justify-center w-full h-[4rem]">
+    <nav className="flex justify-center w-full h-[4rem] px-12">
       <div className="flex justify-between items-center w-full h-full  max-w-[1300px]">
         <FontAwesomeIcon icon={faBars} size="xl" />
 
