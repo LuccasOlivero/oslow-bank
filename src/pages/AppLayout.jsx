@@ -17,8 +17,9 @@ import BankOptionsManager from "../components/BankOptionsManager";
 import { useAuth } from "../contexts/AuthContext";
 import Loader from "../components/Loader";
 import Movement from "../components/Movement";
+import { memo } from "react";
 
-function AppLayout() {
+const AppLayout = memo(function AppLayout() {
   const { user, isLoading } = useAuth();
   const {
     setOptionsActive,
@@ -205,5 +206,5 @@ function AppLayout() {
       </main>
     </>
   );
-}
+});
 export default AppLayout;

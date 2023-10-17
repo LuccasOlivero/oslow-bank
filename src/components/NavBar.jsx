@@ -8,15 +8,12 @@ import { useCallback } from "react";
 function NavBar({ session = "Login", setActive, active }) {
   const { logout } = useAuth();
 
-  // const handleClick = useCallback(
-  //   function handleClick() {
-  //     logout();
-  //   },
-  //   [logout]
-  // );
-  function handleClick() {
-    logout();
-  }
+  const handleClick = useCallback(
+    function handleClick() {
+      logout();
+    },
+    [logout]
+  );
 
   const location = useLocation();
   return (
