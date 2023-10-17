@@ -3,10 +3,17 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, NavLink } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import SideBar from "./Sidebar";
+import { useCallback } from "react";
 
 function NavBar({ session = "Login", setActive, active }) {
   const { logout } = useAuth();
 
+  // const handleClick = useCallback(
+  //   function handleClick() {
+  //     logout();
+  //   },
+  //   [logout]
+  // );
   function handleClick() {
     logout();
   }

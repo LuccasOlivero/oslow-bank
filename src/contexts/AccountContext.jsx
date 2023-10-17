@@ -4,6 +4,8 @@ import {
   useReducer,
   useState,
   useEffect,
+  useMemo,
+  useCallback,
 } from "react";
 import PropTypes from "prop-types";
 import { useAuth } from "./AuthContext";
@@ -116,90 +118,120 @@ function AccountProvider({ children }) {
   }, [movements]);
 
   // diferent types of operations from user
-  function depositAccount(input, type) {
-    if (input < 1) return;
+  const depositAccount = useCallback(
+    function depositAccount(input, type) {
+      if (input < 1) return;
 
-    setIsLoading(true);
+      setIsLoading(true);
 
-    setTimeout(() => {
-      dispatch({ type: "deposit", payload: input });
-      setMovements([{ type: type, balance: input }, ...movements]);
-      setIsLoading(false);
-    }, 1000);
-  }
+      setTimeout(() => {
+        dispatch({ type: "deposit", payload: input });
+        setMovements([{ type: type, balance: input }, ...movements]);
+        setIsLoading(false);
+      }, 1000);
+    },
+    [movements, setIsLoading]
+  );
 
-  function operationWithdraw(input, type) {
-    if (input > userBalance) return;
+  const operationWithdraw = useCallback(
+    function operationWithdraw(input, type) {
+      if (input > userBalance) return;
 
-    setIsLoading(true);
+      setIsLoading(true);
 
-    setTimeout(() => {
-      dispatch({ type: "withdraw", payload: input });
-      setMovements([{ type: type, balance: input }, ...movements]);
-      setIsLoading(false);
-    }, 1000);
-  }
+      setTimeout(() => {
+        dispatch({ type: "withdraw", payload: input });
+        setMovements([{ type: type, balance: input }, ...movements]);
+        setIsLoading(false);
+      }, 1000);
+    },
+    [movements, setIsLoading, userBalance]
+  );
 
-  function requestLoan(input, type) {
-    if (input > 10000) return;
+  const requestLoan = useCallback(
+    function requestLoan(input, type) {
+      if (input > 10000) return;
 
-    setIsLoading(true);
+      setIsLoading(true);
 
-    setTimeout(() => {
-      dispatch({ type: "loan", payload: input });
-      setMovements([{ type: type, balance: input }, ...movements]);
-      setIsLoading(false);
-    }, 1000);
-  }
+      setTimeout(() => {
+        dispatch({ type: "loan", payload: input });
+        setMovements([{ type: type, balance: input }, ...movements]);
+        setIsLoading(false);
+      }, 1000);
+    },
+    [movements, setIsLoading]
+  );
 
-  function payLoan(type) {
-    setIsLoading(true);
+  const payLoan = useCallback(
+    function payLoan(type) {
+      setIsLoading(true);
 
-    setTimeout(() => {
-      dispatch({ type: "payLoan", payload: null });
-      setMovements([{ type: type, balance: loans }, ...movements]);
-      setIsLoading(false);
-    }, 1000);
-  }
+      setTimeout(() => {
+        dispatch({ type: "payLoan", payload: null });
+        setMovements([{ type: type, balance: loans }, ...movements]);
+        setIsLoading(false);
+      }, 1000);
+    },
+    [movements, setIsLoading, loans]
+  );
 
-  function transfer(input, type) {
-    setIsLoading(true);
+  const transfer = useCallback(
+    function transfer(input, type) {
+      setIsLoading(true);
 
-    setTimeout(() => {
-      dispatch({ type: "transfer", payload: input });
-      setMovements([{ type: type, balance: input }, ...movements]);
-      setIsLoading(false);
-    }, 1000);
-  }
+      setTimeout(() => {
+        dispatch({ type: "transfer", payload: input });
+        setMovements([{ type: type, balance: input }, ...movements]);
+        setIsLoading(false);
+      }, 1000);
+    },
+    [movements, setIsLoading]
+  );
+
+  const value = useMemo(() => {
+    return {
+      dispatch,
+      optionsActive,
+      setOptionsActive,
+      userBalance,
+      setAmount,
+      amount,
+      depositAccount,
+      typeOfOperation,
+      setTypeOfOperation,
+      operationWithdraw,
+      selectedCurrency,
+      setSelectedCurrency,
+      activeOption,
+      setActiveOption,
+      requestLoan,
+      loans,
+      movements,
+      setMovements,
+      completeDate,
+      payLoan,
+      transfer,
+    };
+  }, [
+    activeOption,
+    amount,
+    completeDate,
+    depositAccount,
+    loans,
+    movements,
+    operationWithdraw,
+    optionsActive,
+    payLoan,
+    requestLoan,
+    selectedCurrency,
+    typeOfOperation,
+    transfer,
+    userBalance,
+  ]);
 
   return (
-    <AccountContext.Provider
-      value={{
-        dispatch,
-        optionsActive,
-        setOptionsActive,
-        userBalance,
-        setAmount,
-        amount,
-        depositAccount,
-        typeOfOperation,
-        setTypeOfOperation,
-        operationWithdraw,
-        selectedCurrency,
-        setSelectedCurrency,
-        activeOption,
-        setActiveOption,
-        requestLoan,
-        loans,
-        movements,
-        setMovements,
-        completeDate,
-        payLoan,
-        transfer,
-      }}
-    >
-      {children}
-    </AccountContext.Provider>
+    <AccountContext.Provider value={value}>{children}</AccountContext.Provider>
   );
 }
 
