@@ -2,7 +2,6 @@ import { useAccount } from "../contexts/AccountContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 
 function BankOptionsManager({ type, handleClickOperation }) {
   // Deconstructing values from context with custom hook
@@ -328,11 +327,5 @@ function BankOptionsManager({ type, handleClickOperation }) {
     </>
   );
 }
-
-// config eslit to avoid some props errors
-BankOptionsManager.propTypes = {
-  type: PropTypes.string.isRequired,
-  handleClickOperation: PropTypes.func.isRequired,
-};
 
 export default BankOptionsManager;

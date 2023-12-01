@@ -15,7 +15,7 @@ function PageNotFound() {
             className="text-white text-[4rem] font-extrabold w-full
           max-sm:text-[2rem] "
           >
-            UH OH! You're lost.
+            UH OH! You&apos;re lost.
           </h2>
 
           <p className="text-white font-bold text-xl max-sm:text-sm">

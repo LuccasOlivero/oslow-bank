@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoneyBillTransfer } from "@fortawesome/free-solid-svg-icons";
 import { useAccount } from "../contexts/AccountContext";
-import PropTypes from "prop-types";
 
 function Movement({ movement }) {
   const { completeDate } = useAccount();
@@ -34,9 +33,5 @@ function Movement({ movement }) {
     </div>
   );
 }
-
-Movement.propTypes = {
-  movement: PropTypes.object.isRequired,
-};
 
 export default Movement;

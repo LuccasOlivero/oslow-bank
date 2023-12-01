@@ -6,11 +6,6 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import { AccountProvider } from "./contexts/AccountContext";
 import Loader from "./components/Loader";
 
-// import Main from "./components/Main";
-// import AppLayout from "./pages/AppLayout";
-// import Login from "./pages/Login";
-// import PageNotFound from "./components/PageNotFound";
-
 const Main = lazy(() => import("./components/Main"));
 const AppLayout = lazy(() => import("./pages/AppLayout"));
 const Login = lazy(() => import("./pages/Login"));
