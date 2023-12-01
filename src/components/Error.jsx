@@ -10,6 +10,7 @@ function Error() {
     setPassword("admin");
     setError(() => false);
   }
+
   return (
     <div className="absolute flex m-auto z-[99]">
       <div

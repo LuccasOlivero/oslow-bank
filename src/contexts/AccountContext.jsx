@@ -7,7 +7,6 @@ import {
   useMemo,
   useCallback,
 } from "react";
-import PropTypes from "prop-types";
 import { useAuth } from "./AuthContext";
 
 const AccountContext = createContext();
@@ -241,9 +240,4 @@ function useAccount() {
     throw new Error("AccountContext was used outside AccountProvider");
   return context;
 }
-
-AccountProvider.propTypes = {
-  children: PropTypes.object.isRequired, // Puedes reemplazar 'string' con el tipo de dato adecuado
-};
-
 export { useAccount, AccountProvider };
