@@ -1,9 +1,10 @@
 import { Suspense, lazy } from "react";
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import { AuthProvider } from "./contexts/AuthContext";
-import ProtectedRoute from "./pages/ProtectedRoute";
 import { AccountProvider } from "./contexts/AccountContext";
+
+import ProtectedRoute from "./pages/ProtectedRoute";
 import Loader from "./components/Loader";
 
 const Main = lazy(() => import("./components/Main"));

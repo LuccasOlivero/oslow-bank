@@ -1,7 +1,9 @@
-import { useAccount } from "../contexts/AccountContext";
+import { useEffect, useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+
+import { useAccount } from "../contexts/AccountContext";
 
 function BankOptionsManager({ type, handleClickOperation }) {
   const {
