@@ -4,7 +4,6 @@ import { faCircleArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 
 function BankOptionsManager({ type, handleClickOperation }) {
-  // Deconstructing values from context with custom hook
   const {
     optionsActive,
     depositAccount,
