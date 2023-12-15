@@ -1,35 +1,24 @@
-import { NavLink } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+// import { NavLink } from "react-router-dom";
+// import { useAuth } from "../contexts/AuthContext";
+import { createPortal } from "react-dom";
 
 function Error() {
-  const { setError, setEmail, setPassword } = useAuth();
+  // const { setError, setEmail, setPassword } = useAuth();
 
-  function handleError(e) {
-    e.preventDefault();
-    setEmail("admin@admin.com");
-    setPassword("admin");
-    setError(() => false);
-  }
+  // function handleError(e) {
+  //   e.preventDefault();
+  //   setEmail("admin@admin.com");
+  //   setPassword("admin");
+  //   setError(() => false);
+  // }
 
-  return (
-    <div className="absolute flex m-auto z-[99]">
-      <div
-        className=" bg-gray-900 h-[23rem] rounded-[3rem] text-white font-bold 
-    w-[19rem] p-6 flex flex-col justify-center items-center text-center"
-      >
-        <h3 className="text-white text-7xl pb-6">Error</h3>
-        <p className="text-white text-xl pb-3">
-          Oops, something went wrong. <br /> Please try again
-        </p>
-
-        <NavLink
-          onClick={(e) => handleError(e)}
-          className="bg-green-600 hover:bg-green-700 p-6 rounded-2xl w-[12rem] h-[2rem] flex justify-center items-center  transition-all ease-in duration-200 "
-        >
-          Back
-        </NavLink>
+  return createPortal(
+    <div className="absolute left-0 top-0 m-auto flex h-screen w-full items-center justify-center">
+      <div className="flex h-[18rem] w-[35rem] items-center justify-center rounded-3xl bg-yellow-500 text-white">
+        something went wrong
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

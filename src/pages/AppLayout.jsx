@@ -1,4 +1,5 @@
-import NavBar from "../components/NavBar";
+import { memo } from "react";
+
 import {
   faDollarSign,
   faCreditCard,
@@ -11,13 +12,15 @@ import {
   faCircleQuestion,
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
-import OptionBank from "../components/OptionBank";
+
 import { useAccount } from "../contexts/AccountContext";
-import BankOptionsManager from "../components/BankOptionsManager";
 import { useAuth } from "../contexts/AuthContext";
+
+import NavBar from "../components/NavBar";
 import Loader from "../components/Loader";
 import Movement from "../components/Movement";
-import { memo } from "react";
+import OptionBank from "../components/OptionBank";
+import BankOptionsManager from "../components/BankOptionsManager";
 
 const AppLayout = memo(function AppLayout() {
   const { user, isLoading } = useAuth();
@@ -53,13 +56,13 @@ const AppLayout = memo(function AppLayout() {
         {isLoading && <Loader />}
         <NavBar session={"Logout"} />
 
-        <section className="flex justify-center relative h-full w-full bg-[#f2f2f2] px-6">
-          <div className="grid grid-cols-3 gap-6 max-w-[1300px] my-[3rem] w-full">
+        <section className="relative flex h-full w-full justify-center bg-[#f2f2f2] px-6">
+          <div className="my-[3rem] grid w-full max-w-[1300px] grid-cols-3 gap-6">
             <BankOptionsManager
               type={typeOfOperation}
               handleClickOperation={handleClickOperation}
             />
-            <div className="bg-gray-900 w-full h-full relative rounded-[3rem] text-white py-8 px-12 flex flex-col justify-between items-center shadow-2xl row-span-2 max-xl:py-6 max-lg:col-span-3 ">
+            <div className="relative row-span-2 flex h-full w-full flex-col items-center justify-between rounded-[3rem] bg-gray-900 px-12 py-8 text-white shadow-2xl max-xl:py-6 max-lg:col-span-3">
               <h3 className="relative text-4xl font-bold max-xl:text-3xl">
                 👋 Welcome <span className="text-green-600">{user.name}</span>
               </h3>
@@ -67,7 +70,7 @@ const AppLayout = memo(function AppLayout() {
                 {userBalance[selectedCurrency]},00 <br /> {selectedCurrency}
               </p>
               <select
-                className="text-base text-white uppercase w-full rounded-xl bg-green-600 px-6 outline-none h-[2.5rem] text-center max-w-[15rem] max-lg:mt-3"
+                className="h-[2.5rem] w-full max-w-[15rem] rounded-xl bg-green-600 px-6 text-center text-base uppercase text-white outline-none max-lg:mt-3"
                 value={selectedCurrency}
                 onChange={handleCurrencyChange}
               >
@@ -76,9 +79,9 @@ const AppLayout = memo(function AppLayout() {
               </select>
             </div>
 
-            <div className="bg-green-600 w-full h-full relative rounded-[3rem] text-white py-8 px-12 flex flex-col justify-between shadow-2xl col-span-2 row-span-2 mb-3 items-start max-xl:py-3 max-lg:col-span-3 ">
+            <div className="relative col-span-2 row-span-2 mb-3 flex h-full w-full flex-col items-start justify-between rounded-[3rem] bg-green-600 px-12 py-8 text-white shadow-2xl max-xl:py-3 max-lg:col-span-3 ">
               <h3 className="text-4xl font-bold">How can we assist you?</h3>
-              <div className="grid grid-cols-5 gap-6 text-center text-4xl max-xl:grid-cols-4 max-xl:m-auto max-xl:pt-2 max-md:grid-cols-3 max-sm:grid-cols-2">
+              <div className="grid grid-cols-5 gap-6 text-center text-4xl max-xl:m-auto max-xl:grid-cols-4 max-xl:pt-2 max-md:grid-cols-3 max-sm:grid-cols-2">
                 <span onClick={() => handleClickOperation("deposit")}>
                   <OptionBank
                     type={"Deposit"}
@@ -183,10 +186,10 @@ const AppLayout = memo(function AppLayout() {
               </div>
             </div>
 
-            <div className="bg-white w-full relative rounded-[3rem] py-8 px-12 flex flex-col shadow-2xl col-span-3 ">
-              <h3 className="text-gray-900 text-4xl font-bold mb-6 relative max-sm:text-3xl">
+            <div className="relative col-span-3 flex w-full flex-col rounded-[3rem] bg-white px-12 py-8 shadow-2xl ">
+              <h3 className="relative mb-6 text-4xl font-bold text-gray-900 max-sm:text-3xl">
                 Movements
-                <span className="absolute w-[9rem] h-[3px] bg-green-600 left-0 top-[2.5rem]"></span>
+                <span className="absolute left-0 top-[2.5rem] h-[3px] w-[9rem] bg-green-600"></span>
               </h3>
 
               <div className="grid grid-cols-1 gap-2">
