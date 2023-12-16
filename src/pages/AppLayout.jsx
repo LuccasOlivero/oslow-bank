@@ -62,6 +62,22 @@ const AppLayout = memo(function AppLayout() {
               type={typeOfOperation}
               handleClickOperation={handleClickOperation}
             />
+            <div className="relative row-span-2 flex h-full w-full flex-col items-center justify-between rounded-[3rem] bg-gray-900 px-12 py-8 text-white shadow-2xl max-xl:py-6 max-lg:col-span-3">
+              <h3 className="relative text-4xl font-bold max-xl:text-3xl">
+                👋 Welcome <span className="text-green-600">{user.name}</span>
+              </h3>
+              <p className="text-6xl max-xl:text-5xl max-sm:text-4xl">
+                {userBalance[selectedCurrency]},00 <br /> {selectedCurrency}
+              </p>
+              <select
+                className="h-[2.5rem] w-full max-w-[15rem] rounded-xl bg-green-600 px-6 text-center text-base uppercase text-white outline-none max-lg:mt-3"
+                value={selectedCurrency}
+                onChange={handleCurrencyChange}
+              >
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+              </select>
+            </div>
 
             <div className="relative col-span-2 row-span-2 mb-3 flex h-full w-full flex-col items-start justify-between rounded-[3rem] bg-green-600 px-12 py-8 text-white shadow-2xl max-xl:py-3 max-lg:col-span-3 ">
               <h3 className="text-4xl font-bold">How can we assist you?</h3>
