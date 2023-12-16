@@ -49,22 +49,6 @@ function Login() {
 
         <div className="relative flex h-screen w-full items-center justify-center px-12">
           <div className="relative top-[-3rem] grid h-[28rem] w-full max-w-[1300px]  grid-cols-3 items-center justify-between gap-6 rounded-[3rem] bg-white p-12 shadow-2xl max-xl:gap-3 max-lg:grid-cols-6 max-md:h-[25rem] max-md:p-6">
-            <article className="col-start-1 col-end-3 flex h-full w-full flex-col justify-evenly rounded-[3rem] bg-gray-900 p-6 shadow-2xl max-lg:col-end-5 max-lg:hidden">
-              <h2 className="text-4xl font-semibold text-white">
-                Welcome to <span className="text-green-600">Oslo</span>: your
-                passport to a modern financial future.
-              </h2>
-              <p className="font-base text-xl text-white">
-                Join today for a modern banking experience like no other. With
-                secure access to your accounts, innovative financial tools, and
-                exclusive benefits,{" "}
-                <strong className="text-green-600">Oslo</strong> is your gateway
-                to a brighter financial future. Register now and start your
-                journey to financial freedom. Welcome to the future of banking
-                with <strong className="text-green-600">Oslo</strong>!
-              </p>
-            </article>
-
             <form
               className="relative col-start-3 flex h-full w-full items-center justify-center max-lg:col-start-2 max-lg:col-end-6 max-md:col-start-1 max-md:col-end-7"
               onSubmit={handleSubmit}
