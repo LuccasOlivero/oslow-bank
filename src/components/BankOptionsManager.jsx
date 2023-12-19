@@ -256,72 +256,7 @@ function BankOptionsManager({ type, handleClickOperation }) {
                                 className=" flex h-[2.5rem] appearance-none items-center justify-center rounded-xl bg-[#f2f2f2] px-6 font-semibold shadow-xl outline-none max-md:w-full"
                                 onClick={() => handleApplyLoan()}
                               >
-                                Try Loan
-                              </button>
-                            ) : (
-                              <span className=" flex h-[2.5rem] w-[13rem] appearance-none items-center justify-center rounded-xl bg-[#f2f2f2] px-6 font-bold shadow-xl outline-none">
-                                $ {loans} USD
-                              </span>
-                            )}
-                          </div>
-                        ) : (
-                          <input
-                            type="number"
-                            className=" h-[2.5rem] appearance-none rounded-xl bg-[#f2f2f2] px-6 shadow-xl outline-none"
-                            onChange={handleDeposit}
-                            placeholder="Ex: 100"
-                          />
-                        )}
-                      </div>
 
-                      {type === "transfer" ? (
-                        <div className="flex h-full flex-col justify-between">
-                          <p className="relative mr-4 pb-3 text-4xl font-semibold text-gray-900 max-md:text-2xl">
-                            Acct.No.
-                          </p>
-
-                          <input
-                            type="number"
-                            name=""
-                            className="h-[2.5rem] appearance-none rounded-xl bg-[#f2f2f2] px-6 shadow-xl outline-none "
-                            placeholder="Ex: 425426649"
-                            onChange={(e) => handleInputAccNo(e)}
-                          />
-                        </div>
-                      ) : null}
-                      <div className="flex h-full flex-col justify-between">
-                        <p className="relative mr-4 pb-3 text-4xl font-semibold text-gray-900 max-md:text-2xl">
-                          Currency
-                        </p>
-
-                        <select
-                          className="h-[2.5rem] w-full rounded-xl bg-green-600 px-6 text-center text-base uppercase text-white shadow-lg outline-none"
-                          disabled={true}
-                        >
-                          <option value="USD">USD</option>
-                          <option value="EUR">EUR</option>
-                        </select>
-                      </div>
-
-                      <div className="relative flex h-full flex-col justify-end ">
-                        {typeOfOperation === "payments" ? (
-                          <button
-                            className="flex h-[2.5rem] w-[7rem] items-center justify-center rounded-2xl bg-green-600 text-base font-bold text-white shadow-xl hover:bg-green-700 hover:shadow-2xl max-md:mt-[1rem] max-md:w-full"
-                            onClick={handlePayLoan}
-                          >
-                            Pay
-                          </button>
-                        ) : (
-                          <button className="flex h-[2.5rem] w-[7rem] items-center justify-center rounded-2xl bg-green-600 text-base font-bold text-white shadow-xl hover:bg-green-700 hover:shadow-2xl max-md:mt-[1rem] max-md:w-full">
-                            Send
-                          </button>
-                        )}
-                      </div>
-                    </form>
-                  </>
-                )}
-              </>
-            )}
           </>
         )}
       </div>
