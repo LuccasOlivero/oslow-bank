@@ -1,7 +1,8 @@
-import NavBar from "../components/NavBar";
 import { useEffect } from "react";
-import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+
+import NavBar from "../components/NavBar";
 import Error from "../components/Error";
 import Loader from "../components/Loader";
 

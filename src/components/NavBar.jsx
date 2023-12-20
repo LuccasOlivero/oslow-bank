@@ -1,9 +1,11 @@
+import { useCallback } from "react";
+import { useLocation, NavLink } from "react-router-dom";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { useLocation, NavLink } from "react-router-dom";
+
 import { useAuth } from "../contexts/AuthContext";
 import SideBar from "./Sidebar";
-import { useCallback } from "react";
 
 function NavBar({ session = "Login", setActive, active }) {
   const { logout } = useAuth();
@@ -12,15 +14,15 @@ function NavBar({ session = "Login", setActive, active }) {
     function handleClick() {
       logout();
     },
-    [logout]
+    [logout],
   );
 
   const location = useLocation();
   return (
     <>
       {active && <SideBar setActive={setActive} active={active} />}
-      <nav className="flex justify-center w-full h-[4rem] px-12 z-[500]">
-        <div className="flex justify-between items-center w-full h-full  max-w-[1300px]">
+      <nav className="z-[500] flex h-[4rem] w-full justify-center px-12">
+        <div className="flex h-full w-full max-w-[1300px] items-center  justify-between">
           <span onClick={() => setActive("translate-x-0")}>
             <FontAwesomeIcon icon={faBars} size="2x" />
           </span>
@@ -29,13 +31,13 @@ function NavBar({ session = "Login", setActive, active }) {
             <img
               src="./oslo.png"
               alt="oslowIcon"
-              className="w-full text-center h-full block"
+              className="block h-full w-full text-center"
             />
           </NavLink>
 
           <NavLink
             to={location.pathname === "/app" ? "/" : "/login"}
-            className="font-semibold text-xl max-lg:text-sm"
+            className="text-xl font-semibold max-lg:text-sm"
             onClick={handleClick}
           >
             {session}
