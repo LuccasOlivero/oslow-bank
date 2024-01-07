@@ -10,7 +10,6 @@ function Card({ title, icon }) {
       <div className="grid h-[4rem] w-[4rem] items-center justify-center rounded-full bg-[#f2f2f2] shadow-lg">
         <FontAwesomeIcon icon={icon} color="#059669" size="sm" />
       </div>
-
       <h3 className="text-xs font-bold text-gray-900 ">{title}</h3>
       <span className="flex h-[2rem] w-full items-center justify-center rounded-3xl bg-gray-900 text-sm font-semibold transition-all duration-200 ease-in hover:bg-green-700">
         more

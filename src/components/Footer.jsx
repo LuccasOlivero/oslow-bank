@@ -10,14 +10,12 @@ function Footer() {
               className="block h-full w-full"
             />
           </picture>
-
           <p className="pb-1 text-sm font-normal">
             &copy; Copyright {new Date().getFullYear()}
             <br />
             by <span className="font-bold text-green-600">Oslo Inc.</span>
           </p>
         </div>
-
         <div className="flex w-full flex-col items-center pt-[5rem]">
           <h3 className="pb-2 text-base font-bold  max-lg:text-sm">
             We want to help you.
@@ -29,7 +27,6 @@ function Footer() {
             Chat with us
           </p>
         </div>
-
         <div className="flex w-full flex-col items-end pt-[5rem]">
           <h3 className="pb-3 text-center text-base font-bold   max-lg:text-sm">
             About us
