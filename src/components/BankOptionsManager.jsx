@@ -301,7 +301,6 @@ function BankOptionsManager({ type, handleClickOperation }) {
                           <option value="EUR">EUR</option>
                         </select>
                       </div>
-
                       <div className="relative flex h-full flex-col justify-end ">
                         {typeOfOperation === "payments" ? (
                           <button
@@ -324,6 +323,7 @@ function BankOptionsManager({ type, handleClickOperation }) {
           </>
         )}
       </div>
+      <h2 className="hidden">this is only to add lines of code xd</h2>
     </>
   );
 }
