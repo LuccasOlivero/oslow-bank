@@ -248,7 +248,6 @@ function BankOptionsManager({ type, handleClickOperation }) {
                             : ""}
                           {typeOfOperation === "transfer" ? "Amount" : ""}
                         </p>
-
                         {typeOfOperation === "payments" ? (
                           <div className="flex justify-center">
                             {loans === null ? (
