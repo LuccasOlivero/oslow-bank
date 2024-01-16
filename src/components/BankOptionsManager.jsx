@@ -323,7 +323,7 @@ function BankOptionsManager({ type, handleClickOperation }) {
           </>
         )}
       </div>
-      <h2 className="hidden">this is only to add lines of code xd</h2>
+      {setAccNo >= 10 ? "this is only test" : "another one"}
     </>
   );
 }
