@@ -1,23 +1,24 @@
-// import { NavLink } from "react-router-dom";
-// import { useAuth } from "../contexts/AuthContext";
 import { createPortal } from "react-dom";
+import { motion } from "framer-motion";
 
 function Error() {
-  // const { setError, setEmail, setPassword } = useAuth();
-
-  // function handleError(e) {
-  //   e.preventDefault();
-  //   setEmail("admin@admin.com");
-  //   setPassword("admin");
-  //   setError(() => false);
-  // }
+  const containerStyle =
+    "absolute left-0 top-0 m-auto flex h-screen w-full items-center justify-center";
 
   return createPortal(
-    <div className="absolute left-0 top-0 m-auto flex h-screen w-full items-center justify-center">
+    <motion.div
+      initial={{
+        scale: 0,
+      }}
+      transition={{
+        scale: 1,
+      }}
+      className={containerStyle}
+    >
       <div className="flex h-[18rem] w-[35rem] items-center justify-center rounded-3xl bg-yellow-500 text-white">
-        something went wrong
+        something went wrong, try again
       </div>
-    </div>,
+    </motion.div>,
     document.body,
   );
 }

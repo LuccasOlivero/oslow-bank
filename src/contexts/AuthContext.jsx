@@ -28,7 +28,7 @@ function reducer(state, action) {
 function AuthProvider({ children }) {
   const [{ user, isAuthenticated }, disppath] = useReducer(
     reducer,
-    initialState
+    initialState,
   );
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("admin@admin.com");

@@ -9,6 +9,7 @@ import SideBar from "./Sidebar";
 
 function NavBar({ session = "Login", setActive, active }) {
   const { logout } = useAuth();
+  const location = useLocation();
 
   const handleClick = useCallback(
     function handleClick() {
@@ -17,7 +18,6 @@ function NavBar({ session = "Login", setActive, active }) {
     [logout],
   );
 
-  const location = useLocation();
   return (
     <>
       {active && <SideBar setActive={setActive} active={active} />}

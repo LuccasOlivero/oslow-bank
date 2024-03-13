@@ -5,6 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import NavBar from "../components/NavBar";
 import Error from "../components/Error";
 import Loader from "../components/Loader";
+import Footer from "../components/Footer";
 
 function Login() {
   const {
@@ -30,7 +31,7 @@ function Login() {
         login(email, password);
         setIsLoading(false);
       }
-    }, 2000);
+    }, 1000);
   }
 
   useEffect(() => {
@@ -49,8 +50,8 @@ function Login() {
         <NavBar />
 
         <div className="relative flex h-screen w-full items-center justify-center px-12">
-          <div className="relative top-[-3rem] grid h-[28rem] w-full max-w-[1300px]  grid-cols-3 items-center justify-between gap-6 rounded-[3rem] bg-white p-12 shadow-2xl max-xl:gap-3 max-lg:grid-cols-6 max-md:h-[25rem] max-md:p-6">
-            <article className="col-start-1 col-end-3 flex h-full w-full flex-col justify-evenly rounded-[3rem] bg-gray-900 p-6 shadow-2xl max-lg:col-end-5 max-lg:hidden">
+          <div className="relative top-[-1rem] grid h-[34rem] w-full max-w-[1300px] grid-cols-3 items-center justify-between gap-4 rounded-[2rem] bg-white p-9 shadow-2xl max-xl:gap-3 max-lg:grid-cols-6 max-md:h-[25rem] max-md:p-6">
+            <article className="col-start-1 col-end-3 flex h-full w-full flex-col justify-evenly rounded-[2rem] bg-gray-900 p-6 shadow-2xl max-lg:col-end-5 max-lg:hidden">
               <h2 className="text-4xl font-semibold text-white">
                 Welcome to <span className="text-green-600">Oslo</span>: your
                 passport to a modern financial future.
@@ -65,14 +66,13 @@ function Login() {
                 with <strong className="text-green-600">Oslo</strong>!
               </p>
             </article>
-
             <form
               className="relative col-start-3 flex h-full w-full items-center justify-center max-lg:col-start-2 max-lg:col-end-6 max-md:col-start-1 max-md:col-end-7"
               onSubmit={handleSubmit}
             >
               <div
                 className="relative flex h-full w-[22rem]
-             flex-col justify-evenly rounded-[3rem] bg-green-600 p-6 shadow-2xl"
+             flex-col justify-evenly rounded-[2rem] bg-green-600 p-6 shadow-2xl"
               >
                 <p className="relative text-3xl font-bold text-white">
                   Email address
@@ -100,15 +100,25 @@ function Login() {
                 />
 
                 <div className="flex justify-end">
-                  <button className=" h-[3rem] w-full rounded-2xl bg-gray-900 p-3 font-bold text-white transition-all duration-300 ease-in hover:bg-gray-950 hover:shadow-2xl">
+                  <button className=" h-[3rem] w-full rounded-[1rem] bg-gray-900 p-3 font-bold text-white transition-all duration-300 ease-in hover:bg-gray-950 hover:shadow-2xl">
                     Login
                   </button>
                 </div>
               </div>
             </form>
+            <div className="col-span-3 flex h-full w-full rounded-[1rem] bg-slate-700 p-6 text-white">
+              Accessing our online banking service signifies your agreement to
+              the terms and conditions outlined by Oslo. Unauthorized use is
+              prohibited. Please review our Privacy Policy and Electronic
+              Communications Disclosure. Transaction fees and limits apply as
+              per our Fee Schedule. For further details, consult our Online
+              Banking Agreement. Contact customer support at 12341234234.
+              Copyright © 2024 Oslo. All rights reserved.
+            </div>
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 }

@@ -20,7 +20,7 @@ import NavBar from "../components/NavBar";
 import Loader from "../components/Loader";
 import Movement from "../components/Movement";
 import OptionBank from "../components/OptionBank";
-import BankOptionsManager from "../components/BankOptionsManager";
+import Footer from "../components/Footer";
 
 const AppLayout = memo(function AppLayout() {
   const { user, isLoading } = useAuth();
@@ -58,10 +58,6 @@ const AppLayout = memo(function AppLayout() {
 
         <section className="relative flex h-full w-full justify-center bg-[#f2f2f2] px-6">
           <div className="my-[3rem] grid w-full max-w-[1300px] grid-cols-3 gap-6">
-            <BankOptionsManager
-              type={typeOfOperation}
-              handleClickOperation={handleClickOperation}
-            />
             <div className="relative row-span-2 flex h-full w-full flex-col items-center justify-between rounded-[3rem] bg-gray-900 px-12 py-8 text-white shadow-2xl max-xl:py-6 max-lg:col-span-3">
               <h3 className="relative text-4xl font-bold max-xl:text-3xl">
                 👋 Welcome <span className="text-green-600">{user.name}</span>
@@ -207,6 +203,7 @@ const AppLayout = memo(function AppLayout() {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 });
